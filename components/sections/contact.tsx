@@ -57,7 +57,7 @@ export function Contact({ t }: { t: Dictionary }) {
               </Row>
               {site.cvPath && (
                 <Row icon={<DownloadIcon {...icon} />} label={contact.labels.cv}>
-                  <a href={site.cvPath} download className={rowLink}>
+                  <a href={site.cvPath} download={site.cvFileName} className={rowLink}>
                     {contact.cvLink}
                   </a>
                 </Row>

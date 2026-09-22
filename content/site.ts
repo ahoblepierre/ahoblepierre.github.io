@@ -9,7 +9,9 @@ export const site = {
 
   // Drop the PDF into `public/cv/` and set its path, e.g. "/cv/simon-pierre-ahoble-cv.pdf".
   // While this is null, every "Download CV" link is hidden.
-  cvPath: null as string | null,
+  cvPath: "/cv/AHOBLE-CV.pdf" as string | null,
+  // Name the file gets when downloaded.
+  cvFileName: "Simon-Pierre-AHOBLE-CV.pdf",
 
   // Web3Forms access key (https://web3forms.com). Injected at build time from the
   // WEB3FORMS_KEY repository secret. Without it, the form falls back to opening an email.

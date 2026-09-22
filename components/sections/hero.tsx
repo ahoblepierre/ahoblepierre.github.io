@@ -36,7 +36,7 @@ export function Hero({ t }: { t: Dictionary }) {
             {site.cvPath && (
               <a
                 href={site.cvPath}
-                download
+                download={site.cvFileName}
                 className="inline-flex items-center gap-2.5 rounded-full border border-line-strong px-[26px] py-[15px] text-[15px] font-semibold text-fg no-underline transition-colors hover:border-accent-ink hover:text-accent-ink"
               >
                 <DownloadIcon size={16} />
