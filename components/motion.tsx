@@ -113,20 +113,34 @@ export function Parallax({ className, children, distance = 60 }: { className?: s
 }
 
 /** Tinted project photo that drifts slightly inside its frame while scrolling. */
-export function ParallaxImage({ src, alt, className }: { src: string; alt: string; className?: string }) {
+export function ParallaxImage({
+  src,
+  alt,
+  className,
+  tint = true,
+  position = "50% 50%",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  // false: keep the photo's natural colors (no grayscale + accent wash).
+  tint?: boolean;
+  // Focal point kept in frame when the image is cropped (CSS object-position).
+  position?: string;
+}) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
   return (
     <motion.figure
       ref={ref}
-      className={`tint ${className ?? ""}`}
+      className={`tint ${tint ? "" : "tint-natural"} ${className ?? ""}`}
       initial={{ opacity: 0, scale: 0.96 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={VIEWPORT}
       transition={{ duration: 1.1, ease: EASE }}
     >
-      <motion.img src={src} alt={alt} loading="lazy" style={{ y, scale: 1.18 }} className="absolute inset-0" />
+      <motion.img src={src} alt={alt} loading="lazy" style={{ y, scale: 1.18, objectPosition: position }} className="absolute inset-0" />
     </motion.figure>
   );
 }

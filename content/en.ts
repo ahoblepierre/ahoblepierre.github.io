@@ -209,7 +209,7 @@ export const en: Dictionary = {
     ],
     quote:
       "For me, being a developer is not only about writing code. It is about understanding the problem, designing the right solution and delivering software that people can actually use.",
-    image: { src: images.about, alt: "A laptop on a dark desk lit by warm light" },
+    image: { src: images.about, alt: "Simon Pierre AHOBLE coding at his desk, with the Abidjan skyline through the window" },
     facts: [
       {
         label: "Education",
@@ -320,7 +320,6 @@ export const en: Dictionary = {
   footer: {
     role: "Full-Stack Developer · Abidjan, Côte d'Ivoire",
     tagline: "Designed & built with curiosity.",
-    credit: "Photography: Unsplash",
   },
   notFound: {
     title: "Page not found.",

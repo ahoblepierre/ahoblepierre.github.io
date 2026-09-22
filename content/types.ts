@@ -117,6 +117,6 @@ export type Dictionary = {
       subject: string;
     };
   };
-  footer: { role: string; tagline: string; credit: string };
+  footer: { role: string; tagline: string };
   notFound: { title: string; text: string; back: string };
 };

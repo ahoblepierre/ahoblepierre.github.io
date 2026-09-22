@@ -114,7 +114,7 @@ export function SectionRail({ items, label }: { items: { id: string; label: stri
         return (
           <a key={id} href={`#${id}`} className="group flex items-center gap-3 text-fg-2 no-underline">
             <span
-              className={`font-mono text-[10px] tracking-[.18em] uppercase transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 ${on ? "translate-x-0 opacity-100" : "translate-x-1.5 opacity-0"}`}
+              className={`rounded-full bg-[color-mix(in_srgb,var(--ink)_85%,transparent)] px-2 py-0.5 font-mono text-[10px] tracking-[.18em] uppercase backdrop-blur transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 ${on ? "translate-x-0 opacity-100" : "translate-x-1.5 opacity-0"}`}
             >
               {text}
             </span>

@@ -209,7 +209,7 @@ export const fr: Dictionary = {
     ],
     quote:
       "Pour moi, être développeur ne consiste pas seulement à écrire du code. C'est comprendre le problème, concevoir la bonne solution et livrer un logiciel que les gens peuvent réellement utiliser.",
-    image: { src: images.about, alt: "Un ordinateur portable sur un bureau sombre, éclairé d'une lumière chaude" },
+    image: { src: images.about, alt: "Simon Pierre AHOBLE en train de coder à son bureau, avec Abidjan en arrière-plan" },
     facts: [
       {
         label: "Formation",
@@ -321,7 +321,6 @@ export const fr: Dictionary = {
   footer: {
     role: "Développeur Full-Stack · Abidjan, Côte d'Ivoire",
     tagline: "Conçu & développé avec curiosité.",
-    credit: "Photos : Unsplash",
   },
   notFound: {
     title: "Page introuvable.",

@@ -1,8 +1,4 @@
-// Placeholder photography from Unsplash — replace with real project screens
-// (put them in `public/images/` and use paths like "/images/kori.webp").
-const unsplash = (id: string, width: number) =>
-  `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=75`;
-
+// All images are self-hosted in `public/images/` (WebP).
 export const images = {
   // Real app screens (device mockups with transparent background).
   koriScreens: {
@@ -21,5 +17,5 @@ export const images = {
     home: "/images/pourpieces/home.webp",
     filters: "/images/pourpieces/filters.webp",
   },
-  about: unsplash("photo-1531297484001-80022131f5a1", 900),
+  about: "/images/about.webp",
 };

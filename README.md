@@ -25,7 +25,7 @@ Tout le texte est dans `content/`, pas dans les composants :
 | --- | --- |
 | `content/fr.ts` / `content/en.ts` | Tous les textes, projets et expériences, par langue |
 | `content/site.ts` | Email, téléphone, LinkedIn, GitHub, lien du CV |
-| `content/images.ts` | Écrans des apps (Kori, CRM Events, Pourpièces) et photo « À propos » (Unsplash) |
+| `content/images.ts` | Écrans des apps (Kori, CRM Events, Pourpièces) et photo « À propos » |
 | `content/types.ts` | La structure commune aux deux langues |
 
 Ajouter un projet = ajouter une entrée dans `work.projects` des **deux** fichiers de langue

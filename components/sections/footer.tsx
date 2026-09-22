@@ -31,7 +31,6 @@ export function Footer({ t }: { t: Dictionary }) {
           <span>
             © {new Date().getFullYear()} {site.name} · {t.footer.tagline}
           </span>
-          <span>{t.footer.credit}</span>
         </div>
       </div>
     </footer>

@@ -146,6 +146,16 @@ html[data-theme="light"] {
   .tint::after {
     background: linear-gradient(180deg, transparent 45%, rgba(10, 10, 11, 0.5) 100%);
   }
+  /* Personal photos keep their colors; only the soft bottom shade remains. */
+  .tint-natural img {
+    filter: none;
+  }
+  .tint-natural::before {
+    display: none;
+  }
+  .tint-natural::after {
+    background: linear-gradient(180deg, transparent 70%, rgba(10, 10, 11, 0.35) 100%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

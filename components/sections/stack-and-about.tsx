@@ -67,7 +67,13 @@ export function About({ t }: { t: Dictionary }) {
           </Reveal>
         </div>
         <div className="flex flex-col gap-[26px]">
-          <ParallaxImage src={about.image.src} alt={about.image.alt} className="aspect-[4/5] rounded-3xl max-lg:aspect-[4/3]" />
+          <ParallaxImage
+            src={about.image.src}
+            alt={about.image.alt}
+            tint={false}
+            position="50% 25%"
+            className="aspect-[4/5] rounded-3xl max-lg:aspect-[4/3]"
+          />
           <Reveal as="dl" className="m-0 border-b border-line">
             {about.facts.map((fact) => (
               <div key={fact.label} className="border-t border-line py-[15px]">
