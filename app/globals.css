@@ -158,6 +158,12 @@ html[data-theme="light"] {
   }
 }
 
+@keyframes caret-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

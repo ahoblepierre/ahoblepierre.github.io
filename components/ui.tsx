@@ -1,21 +1,4 @@
-import { Fragment, type ReactNode } from "react";
-
-/** Renders "*word*" segments of a string in the accent color. */
-export function Accented({ text }: { text: string }) {
-  return (
-    <>
-      {text.split(/(\*[^*]+\*)/).map((part, i) =>
-        part.startsWith("*") && part.endsWith("*") ? (
-          <span key={i} className="text-accent-ink">
-            {part.slice(1, -1)}
-          </span>
-        ) : (
-          <Fragment key={i}>{part}</Fragment>
-        ),
-      )}
-    </>
-  );
-}
+import type { ReactNode } from "react";
 
 /** "01 / 07" section counter. */
 export function Counter({ n, total = 7, className = "" }: { n: number; total?: number; className?: string }) {

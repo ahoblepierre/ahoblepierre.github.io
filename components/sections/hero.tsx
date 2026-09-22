@@ -2,7 +2,7 @@ import type { Dictionary } from "@/content";
 import { site } from "@/content/site";
 import { DownloadIcon } from "../icons";
 import { Entrance, Parallax } from "../motion";
-import { Accented } from "../ui";
+import { HeroTitle } from "../hero-title";
 
 export function Hero({ t }: { t: Dictionary }) {
   return (
@@ -13,11 +13,9 @@ export function Hero({ t }: { t: Dictionary }) {
             <span aria-hidden="true" className="block h-px w-[34px] bg-accent" />
             <span className="eyebrow text-accent-ink uppercase">{t.hero.kicker}</span>
           </Entrance>
-          <Entrance delay={0.12}>
-            <h1 className="mb-[clamp(24px,3vw,36px)] max-w-[16ch] font-display text-[clamp(42px,7.6vw,116px)] leading-[.94] font-extrabold tracking-[-.035em] text-pretty">
-              <Accented text={t.hero.title} />
-            </h1>
-          </Entrance>
+          <h1 className="mb-[clamp(24px,3vw,36px)] max-w-[16ch] font-display text-[clamp(42px,7.6vw,116px)] leading-[.94] font-extrabold tracking-[-.035em] text-pretty">
+            <HeroTitle lead={t.hero.titleLead} words={t.hero.titleWords} end={t.hero.titleEnd} />
+          </h1>
           <Entrance delay={0.22}>
             <p className="mb-[clamp(30px,4vw,44px)] max-w-[50ch] text-[clamp(16.5px,1.3vw,19.5px)] text-pretty text-fg-2">
               {t.hero.text}

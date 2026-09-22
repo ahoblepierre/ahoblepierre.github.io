@@ -75,7 +75,10 @@ export type Dictionary = {
   };
   hero: {
     kicker: string;
-    title: string;
+    // The headline: `titleLead` + one of `titleWords` (typed in a loop, in the accent color) + `titleEnd`.
+    titleLead: string;
+    titleWords: string[];
+    titleEnd: string;
     text: string;
     ctaWork: string;
     ctaCv: string;

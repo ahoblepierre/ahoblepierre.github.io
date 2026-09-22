@@ -22,7 +22,9 @@ export const fr: Dictionary = {
   },
   hero: {
     kicker: "Développeur Full-Stack",
-    title: "Je construis des produits numériques, du *backend* au *mobile*.",
+    titleLead: "Je construis des produits numériques, du *backend* au",
+    titleWords: ["mobile", "web", "cloud"],
+    titleEnd: ".",
     text: "Je pars d'un problème métier, je conçois l'API, je développe l'application web ou mobile, je connecte les services nécessaires et je la mets en production.",
     ctaWork: "Voir les projets",
     ctaCv: "Télécharger le CV",
