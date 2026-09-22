@@ -1,26 +1,155 @@
 @import "tailwindcss";
 
+/* Design tokens — dark is the default theme, light is opt-in via html[data-theme="light"]. */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ink: #0a0a0b;
+  --panel: #111113;
+  --panel-2: #17171a;
+  --line: rgba(255, 255, 255, 0.085);
+  --line-strong: rgba(255, 255, 255, 0.18);
+  --accent: #cbf547;
+  --accent-ink: #cbf547;
+  --accent-hover: #e2ff8a;
+  --accent-deep: #a5cb2c;
+  --text: #f3f3f0;
+  --text-2: #b4b4ae;
+  --text-3: #77776f;
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  --ink: #f4f2ec;
+  --panel: #ffffff;
+  --panel-2: #eae7dd;
+  --line: rgba(16, 16, 18, 0.1);
+  --line-strong: rgba(16, 16, 18, 0.22);
+  --text: #16161a;
+  --text-2: #4d4d48;
+  --text-3: #7b7b72;
+  --accent-ink: #4f6b10;
+  --accent-hover: #3d5409;
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-deep: var(--accent-deep);
+  --color-fg: var(--text);
+  --color-fg-2: var(--text-2);
+  --color-fg-3: var(--text-3);
+  --color-on-accent: #0a0a0b;
+
+  --font-display: var(--font-bricolage), system-ui, sans-serif;
+  --font-body: var(--font-instrument), system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@theme {
+  /* Breakpoints taken from the mockup: 720px (bottom nav), 1000px (single column), 1180px (side rail). */
+  --breakpoint-md: 45rem;
+  --breakpoint-lg: 62.5rem;
+  --breakpoint-xl: 73.75rem;
+}
+
+/* Small mono labels used all over the page. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+}
+
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+@utility chip {
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: var(--panel-2);
+  font-size: 14.5px;
+}
+
+@utility section-space {
+  padding-bottom: clamp(88px, 13vw, 180px);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: var(--ink);
+  }
+
+  body {
+    margin: 0;
+    background: var(--ink);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 16.5px;
+    line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: #0a0a0b;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent-ink);
+    outline-offset: 3px;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /* Theme toggle icons: show the sun in dark mode, the moon in light mode. */
+  html[data-theme="light"] .icon-sun,
+  html:not([data-theme="light"]) .icon-moon {
+    display: none;
+  }
+
+  /* Project photos: desaturated, tinted with the accent and darkened at the bottom. */
+  .tint {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+  }
+  .tint img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(0.88) contrast(1.06) brightness(0.88);
+  }
+  .tint::before,
+  .tint::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1; /* above the absolutely positioned, parallaxed image */
+    pointer-events: none;
+  }
+  .tint::before {
+    background: var(--accent);
+    mix-blend-mode: color;
+    opacity: 0.42;
+  }
+  .tint::after {
+    background: linear-gradient(180deg, transparent 45%, rgba(10, 10, 11, 0.5) 100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }
