@@ -108,7 +108,11 @@ export const en: Dictionary = {
         tag: "Mobile Application",
         tagStyle: "outline",
         layout: "media-right",
-        image: { src: images.crmEvents, alt: "Close-up of a phone home screen showing a notification badge" },
+        screens: [
+          { src: images.crmEventsScreens.login, alt: "CRM Events login screen" },
+          { src: images.crmEventsScreens.vendors, alt: "CRM Events vendor list with venues, prices and quotes" },
+          { src: images.crmEventsScreens.events, alt: "CRM Events home screen listing upcoming events" },
+        ],
         lead: "A cross-platform mobile application built with React Native and Expo, shipped to both iOS and Android. Push notifications, TestFlight and App Store Connect, Android builds and native configuration — including version numbers, build numbers, credentials and the native library compatibility problems that come with them.",
         role: "Mobile Developer",
         stack: "React Native · Expo · EAS · Hermes",

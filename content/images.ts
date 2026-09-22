@@ -10,7 +10,11 @@ export const images = {
     welcome: "/images/kori/welcome.webp",
     send: "/images/kori/send.webp",
   },
-  crmEvents: unsplash("photo-1596526131083-e8c633c948d2", 900),
+  crmEventsScreens: {
+    login: "/images/crm-events/login.webp",
+    vendors: "/images/crm-events/vendors.webp",
+    events: "/images/crm-events/events.webp",
+  },
   pourpieces: unsplash("photo-1563986768609-322da13575f3", 900),
   capSecure: unsplash("photo-1486406146926-c627a92ad1ab", 1800),
   sikaExchange: unsplash("photo-1580519542036-c47de6196ba5", 900),

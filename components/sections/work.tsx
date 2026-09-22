@@ -96,7 +96,7 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
 
   const mediaLeft = project.layout === "media-left";
   const figure = project.screens ? (
-    <PhoneShowcase screens={project.screens} className="aspect-[4/5] rounded-[20px] max-lg:aspect-square" />
+    <PhoneShowcase screens={project.screens} compact className="aspect-[4/5] rounded-[20px] max-lg:aspect-[5/4]" />
   ) : (
     project.image && (
       <ParallaxImage src={project.image.src} alt={project.image.alt} className="aspect-[4/5] rounded-[20px] max-lg:aspect-[4/3]" />
