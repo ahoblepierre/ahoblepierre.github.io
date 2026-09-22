@@ -25,7 +25,7 @@ Tout le texte est dans `content/`, pas dans les composants :
 | --- | --- |
 | `content/fr.ts` / `content/en.ts` | Tous les textes, projets et expériences, par langue |
 | `content/site.ts` | Email, téléphone, LinkedIn, GitHub, lien du CV |
-| `content/images.ts` | Photos des projets (actuellement des images Unsplash temporaires) |
+| `content/images.ts` | Écrans des apps (Kori, CRM Events, Pourpièces) et photo « À propos » (Unsplash) |
 | `content/types.ts` | La structure commune aux deux langues |
 
 Ajouter un projet = ajouter une entrée dans `work.projects` des **deux** fichiers de langue
@@ -40,10 +40,18 @@ Dans un titre, entourer un mot d'astérisques (`*backend*`) l'affiche en couleur
 
 Tant que `cvPath` vaut `null`, les boutons « Télécharger le CV » sont masqués.
 
-### Les images de projets
+### Les visuels de projets
 
-Déposer les captures dans `public/images/` (WebP conseillé) et remplacer les URL dans `content/images.ts`
-par des chemins du type `"/images/kori.webp"`.
+Chaque projet affiche, dans cet ordre de priorité (voir `content/types.ts`) :
+
+- `illustration` : une illustration codée et animée (Cap-Secure, SikaExchange), en attendant de vraies captures ;
+- `screens` : des écrans d'app côte à côte — maquettes détourées (`screenStyle: "mockup"`) ou captures App Store
+  plein cadre (`screenStyle: "store"`) ;
+- `image` : une photo.
+
+Pour remplacer une illustration par de vraies captures : déposer les images dans `public/images/<projet>/`
+(WebP conseillé), les déclarer dans `content/images.ts`, puis remplacer `illustration` par `screens`
+dans `content/fr.ts` et `content/en.ts`.
 
 ## Mise en ligne (GitHub Pages)
 

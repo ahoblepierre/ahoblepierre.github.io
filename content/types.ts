@@ -3,6 +3,28 @@
 
 export type Link = { label: string; href: string };
 
+// Coded illustrations for products that can't be screenshotted yet (not public / in progress).
+export type ScheduleIllustration = {
+  kind: "schedule";
+  badge: string;
+  days: string[];
+  shifts: string[];
+  models: string[];
+  modelsCaption: string;
+};
+
+export type ExchangeIllustration = {
+  kind: "exchange";
+  badge: string;
+  send: string;
+  receive: string;
+  rateLabel: string;
+  methods: string[];
+  cta: string;
+  // Number formatting locale, e.g. "fr-FR".
+  numberLocale: string;
+};
+
 export type Project = {
   name: string;
   tag: string;
@@ -14,6 +36,7 @@ export type Project = {
   screens?: { src: string; alt: string }[];
   // "mockup": cut-out device frames (default); "store": full-bleed App Store screenshots, shown as rounded cards.
   screenStyle?: "mockup" | "store";
+  illustration?: ScheduleIllustration | ExchangeIllustration;
   lead: string;
   detail?: string;
   link?: Link;

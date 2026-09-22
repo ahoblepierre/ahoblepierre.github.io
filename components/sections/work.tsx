@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/content";
 import type { Project } from "@/content/types";
+import { ExchangeArt, ScheduleArt } from "../illustrations";
 import { ParallaxImage, PhoneShowcase, Reveal, Stagger, StaggerItem } from "../motion";
 import { Counter, ExternalLink } from "../ui";
 
@@ -70,6 +71,34 @@ function Lead({ project, compact }: { project: Project; compact: boolean }) {
   );
 }
 
+/** The visual of a project card: coded illustration, phone screens or photo, in that order of preference. */
+function ProjectMedia({ project, wide }: { project: Project; wide: boolean }) {
+  const frame = wide
+    ? "mb-[clamp(24px,3vw,38px)] rounded-[20px] md:aspect-[16/9] lg:aspect-[21/10]"
+    : "rounded-[20px] lg:aspect-[4/5]";
+  const art = project.illustration;
+  if (art?.kind === "schedule") return <ScheduleArt data={art} className={frame} />;
+  if (art?.kind === "exchange") return <ExchangeArt data={art} className={frame} />;
+  if (project.screens)
+    return (
+      <PhoneShowcase
+        screens={project.screens}
+        compact={!wide}
+        framed={project.screenStyle === "store"}
+        className={`${frame} aspect-[5/4]`}
+      />
+    );
+  if (project.image)
+    return (
+      <ParallaxImage
+        src={project.image.src}
+        alt={project.image.alt}
+        className={wide ? "mb-[clamp(24px,3vw,38px)] aspect-[16/10] rounded-[20px] md:aspect-[21/9]" : "aspect-[4/3] rounded-[20px] lg:aspect-[4/5]"}
+      />
+    );
+  return null;
+}
+
 function ProjectCard({ project, index, labels, last }: { project: Project; index: number; labels: Labels; last: boolean }) {
   const card = `rounded-[28px] bg-panel p-[clamp(24px,3.6vw,56px)] ${last ? "mb-[clamp(88px,13vw,180px)]" : "mb-[clamp(20px,2.4vw,32px)]"}`;
 
@@ -77,13 +106,7 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
     return (
       <Reveal as="article" className={card}>
         <ProjectHeader project={project} index={index} wide />
-        {project.screens ? (
-          <PhoneShowcase screens={project.screens} framed={project.screenStyle === "store"} className="mb-[clamp(24px,3vw,38px)] aspect-[5/4] rounded-[20px] md:aspect-[16/9] lg:aspect-[21/10]" />
-        ) : (
-          project.image && (
-            <ParallaxImage src={project.image.src} alt={project.image.alt} className="mb-[clamp(24px,3vw,38px)] aspect-[16/10] rounded-[20px] md:aspect-[21/9]" />
-          )
-        )}
+        <ProjectMedia project={project} wide />
         <div className="grid grid-cols-1 gap-[clamp(24px,4vw,64px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,.66fr)]">
           <div>
             <Lead project={project} compact={false} />
@@ -95,18 +118,7 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
   }
 
   const mediaLeft = project.layout === "media-left";
-  const figure = project.screens ? (
-    <PhoneShowcase
-      screens={project.screens}
-      compact
-      framed={project.screenStyle === "store"}
-      className="aspect-[4/5] rounded-[20px] max-lg:aspect-[5/4]"
-    />
-  ) : (
-    project.image && (
-      <ParallaxImage src={project.image.src} alt={project.image.alt} className="aspect-[4/5] rounded-[20px] max-lg:aspect-[4/3]" />
-    )
-  );
+  const figure = <ProjectMedia project={project} wide={false} />;
   return (
     <Reveal
       as="article"
