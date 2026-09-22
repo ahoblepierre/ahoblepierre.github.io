@@ -2,7 +2,7 @@
 export const site = {
   url: "https://ahoblepierre.github.io",
   name: "Simon Pierre AHOBLE",
-  email: "pierreahoble@gmail.com",
+  email: "pierreahoble.dev@gmail.com",
   phone: { label: "+225 01 53 81 57 03", href: "tel:+2250153815703" },
   linkedin: { label: "in/pierreahoble", href: "https://www.linkedin.com/in/pierreahoble/" },
   github: { label: "github.com/ahoblepierre", href: "https://github.com/ahoblepierre" },
