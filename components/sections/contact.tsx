@@ -1,6 +1,8 @@
 import type { ReactNode } from "react";
 import type { Dictionary } from "@/content";
 import { site } from "@/content/site";
+import type { Locale } from "@/lib/i18n";
+import { CvLink } from "../analytics";
 import { ContactForm } from "../contact-form";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon, PhoneIcon } from "../icons";
 import { Reveal, Stagger, StaggerItem } from "../motion";
@@ -20,7 +22,7 @@ function Row({ icon, label, children }: { icon: ReactNode; label: string; childr
   );
 }
 
-export function Contact({ t }: { t: Dictionary }) {
+export function Contact({ t, lang }: { t: Dictionary; lang: Locale }) {
   const { contact } = t;
   const icon = { className: "flex-none" };
   return (
@@ -57,9 +59,9 @@ export function Contact({ t }: { t: Dictionary }) {
               </Row>
               {site.cvPath && (
                 <Row icon={<DownloadIcon {...icon} />} label={contact.labels.cv}>
-                  <a href={site.cvPath} download={site.cvFileName} className={rowLink}>
+                  <CvLink href={site.cvPath} fileName={site.cvFileName} lang={lang} accessKey={site.web3formsKey} className={rowLink}>
                     {contact.cvLink}
-                  </a>
+                  </CvLink>
                 </Row>
               )}
             </Stagger>

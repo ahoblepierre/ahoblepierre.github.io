@@ -22,7 +22,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
       <ScrollProgress />
       <Header t={t} lang={lang} />
       <main id="top" className="mx-auto max-w-[1400px] px-[clamp(18px,4vw,56px)]">
-        <Hero t={t} />
+        <Hero t={t} lang={lang} />
         <WhatIBuild t={t} />
         <HowIWork t={t} />
         <SelectedWork t={t} />
@@ -31,7 +31,7 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
         <Experience t={t} />
         <Beyond t={t} />
       </main>
-      <Contact t={t} />
+      <Contact t={t} lang={lang} />
       <Footer t={t} />
     </div>
   );

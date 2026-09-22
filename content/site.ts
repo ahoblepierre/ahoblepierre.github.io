@@ -13,6 +13,9 @@ export const site = {
   // Name the file gets when downloaded.
   cvFileName: "Simon-Pierre-AHOBLE-CV.pdf",
 
+  // GoatCounter site code: "xyz" for https://xyz.goatcounter.com. Empty = no analytics.
+  goatcounterCode: "",
+
   // Web3Forms access key (https://web3forms.com). Injected at build time from the
   // WEB3FORMS_KEY repository secret. Without it, the form falls back to opening an email.
   web3formsKey: process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "",

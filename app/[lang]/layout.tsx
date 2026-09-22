@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import { Analytics } from "@/components/analytics";
 import { MotionProvider } from "@/components/motion";
 import { getDictionary } from "@/content";
 import { site } from "@/content/site";
@@ -60,6 +61,7 @@ export default async function LangLayout({ children, params }: LayoutProps<"/[la
       </head>
       <body>
         <MotionProvider>{children}</MotionProvider>
+        <Analytics code={site.goatcounterCode} />
       </body>
     </html>
   );

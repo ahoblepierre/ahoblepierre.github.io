@@ -1,10 +1,12 @@
 import type { Dictionary } from "@/content";
 import { site } from "@/content/site";
+import type { Locale } from "@/lib/i18n";
+import { CvLink } from "../analytics";
 import { DownloadIcon } from "../icons";
 import { Entrance, Parallax } from "../motion";
 import { HeroTitle } from "../hero-title";
 
-export function Hero({ t }: { t: Dictionary }) {
+export function Hero({ t, lang }: { t: Dictionary; lang: Locale }) {
   return (
     <>
       <section className="grid grid-cols-1 items-center gap-[clamp(32px,5vw,80px)] pt-[clamp(40px,7vw,96px)] pb-[clamp(48px,7vw,104px)] lg:grid-cols-[minmax(0,1.08fr)_minmax(0,.92fr)]">
@@ -32,14 +34,16 @@ export function Hero({ t }: { t: Dictionary }) {
               </span>
             </a>
             {site.cvPath && (
-              <a
+              <CvLink
                 href={site.cvPath}
-                download={site.cvFileName}
+                fileName={site.cvFileName}
+                lang={lang}
+                accessKey={site.web3formsKey}
                 className="inline-flex items-center gap-2.5 rounded-full border border-line-strong px-[26px] py-[15px] text-[15px] font-semibold text-fg no-underline transition-colors hover:border-accent-ink hover:text-accent-ink"
               >
                 <DownloadIcon size={16} />
                 {t.hero.ctaCv}
-              </a>
+              </CvLink>
             )}
           </Entrance>
         </div>

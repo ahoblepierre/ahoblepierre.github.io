@@ -53,6 +53,15 @@ Pour remplacer une illustration par de vraies captures : déposer les images dan
 (WebP conseillé), les déclarer dans `content/images.ts`, puis remplacer `illustration` par `screens`
 dans `content/fr.ts` et `content/en.ts`.
 
+## Statistiques et notifications
+
+- **Visites** : [GoatCounter](https://www.goatcounter.com), sans cookies (donc pas de bandeau de consentement).
+  Renseigner le code du site dans `content/site.ts` → `goatcounterCode` (ex. `"ahoble"` pour
+  `https://ahoble.goatcounter.com`). Chaque téléchargement du CV y apparaît aussi comme événement `cv-download-fr/en`.
+- **Email à chaque téléchargement du CV** (au plus un par visiteur et par session), envoyé via Web3Forms
+  avec la même clé que le formulaire. Aucune donnée personnelle sur le visiteur : date, langue, type d'appareil
+  et site de provenance.
+
 ## Mise en ligne (GitHub Pages)
 
 Le workflow `.github/workflows/deploy.yml` construit et publie le site à chaque push sur `main`.
