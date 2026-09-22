@@ -123,7 +123,12 @@ export const fr: Dictionary = {
         tag: "Mobile · App Store",
         tagStyle: "outline",
         layout: "media-left",
-        image: { src: images.pourpieces, alt: "Mains tenant un téléphone à côté d'un ordinateur portable ouvert" },
+        screenStyle: "store",
+        screens: [
+          { src: images.pourpiecesScreens.categories, alt: "Capture App Store de Pourpièces : toutes les catégories" },
+          { src: images.pourpiecesScreens.home, alt: "Capture App Store de Pourpièces : la 1ère plateforme dédiée aux objets cassés" },
+          { src: images.pourpiecesScreens.filters, alt: "Capture App Store de Pourpièces : filtres de recherche par ville, code postal et pays" },
+        ],
         lead: "Application mobile menée jusqu'au bout du processus de review Apple : screenshots, metadata, association seller et société, In-App Purchase. Une grande part du travail n'avait rien à voir avec le code — gestion des abonnements et conformité App Store.",
         role: "Développeur mobile",
         stack: "React Native · iOS · In-App Purchase",

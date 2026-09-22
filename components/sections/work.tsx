@@ -78,7 +78,7 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
       <Reveal as="article" className={card}>
         <ProjectHeader project={project} index={index} wide />
         {project.screens ? (
-          <PhoneShowcase screens={project.screens} className="mb-[clamp(24px,3vw,38px)] aspect-[5/4] rounded-[20px] md:aspect-[16/9] lg:aspect-[21/10]" />
+          <PhoneShowcase screens={project.screens} framed={project.screenStyle === "store"} className="mb-[clamp(24px,3vw,38px)] aspect-[5/4] rounded-[20px] md:aspect-[16/9] lg:aspect-[21/10]" />
         ) : (
           project.image && (
             <ParallaxImage src={project.image.src} alt={project.image.alt} className="mb-[clamp(24px,3vw,38px)] aspect-[16/10] rounded-[20px] md:aspect-[21/9]" />
@@ -96,7 +96,12 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
 
   const mediaLeft = project.layout === "media-left";
   const figure = project.screens ? (
-    <PhoneShowcase screens={project.screens} compact className="aspect-[4/5] rounded-[20px] max-lg:aspect-[5/4]" />
+    <PhoneShowcase
+      screens={project.screens}
+      compact
+      framed={project.screenStyle === "store"}
+      className="aspect-[4/5] rounded-[20px] max-lg:aspect-[5/4]"
+    />
   ) : (
     project.image && (
       <ParallaxImage src={project.image.src} alt={project.image.alt} className="aspect-[4/5] rounded-[20px] max-lg:aspect-[4/3]" />

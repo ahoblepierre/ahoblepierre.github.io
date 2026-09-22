@@ -152,11 +152,14 @@ export function PhoneShowcase({
   screens,
   className,
   compact = false,
+  framed = false,
 }: {
   screens: { src: string; alt: string }[];
   className?: string;
   // Narrow frame: bigger phones that overlap.
   compact?: boolean;
+  // Full-bleed screenshots (no device cut-out): round the corners so they read as cards.
+  framed?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
@@ -186,8 +189,10 @@ export function PhoneShowcase({
               className={
                 compact
                   ? side === 0
-                    ? "z-10 w-[48%]"
-                    : `mt-[16%] w-[40%] ${side < 0 ? "-mr-[9%]" : "-ml-[9%]"}`
+                    ? `z-10 ${framed ? "w-[42%]" : "w-[48%]"}`
+                    : framed
+                      ? `mt-[16%] w-[33%] ${side < 0 ? "-mr-[3%]" : "-ml-[3%]"}`
+                      : `mt-[16%] w-[40%] ${side < 0 ? "-mr-[9%]" : "-ml-[9%]"}`
                   : side === 0
                     ? "z-10 w-[36%] md:w-[25%]"
                     : "mt-[8%] w-[30%] md:w-[21%]"
@@ -197,7 +202,7 @@ export function PhoneShowcase({
                 src={screen.src}
                 alt={screen.alt}
                 loading="lazy"
-                className="block h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,.45)]"
+                className={`block h-auto w-full ${framed ? "rounded-[12%/5.5%] shadow-[0_30px_60px_rgba(0,0,0,.5)] ring-1 ring-white/10" : "drop-shadow-[0_30px_40px_rgba(0,0,0,.45)]"}`}
                 variants={{
                   hidden: { opacity: 0, y: 90, rotate: side * 8 },
                   show: { opacity: 1, y: 0, rotate: side * 4, transition: { duration: 1, ease: EASE } },

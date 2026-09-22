@@ -12,6 +12,8 @@ export type Project = {
   // A photo, or phone screenshots (transparent device mockups) shown side by side instead.
   image?: { src: string; alt: string };
   screens?: { src: string; alt: string }[];
+  // "mockup": cut-out device frames (default); "store": full-bleed App Store screenshots, shown as rounded cards.
+  screenStyle?: "mockup" | "store";
   lead: string;
   detail?: string;
   link?: Link;

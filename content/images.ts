@@ -15,7 +15,12 @@ export const images = {
     vendors: "/images/crm-events/vendors.webp",
     events: "/images/crm-events/events.webp",
   },
-  pourpieces: unsplash("photo-1563986768609-322da13575f3", 900),
+  // App Store marketing screenshots (full-bleed, not cut out).
+  pourpiecesScreens: {
+    categories: "/images/pourpieces/categories.webp",
+    home: "/images/pourpieces/home.webp",
+    filters: "/images/pourpieces/filters.webp",
+  },
   capSecure: unsplash("photo-1486406146926-c627a92ad1ab", 1800),
   sikaExchange: unsplash("photo-1580519542036-c47de6196ba5", 900),
   about: unsplash("photo-1531297484001-80022131f5a1", 900),
