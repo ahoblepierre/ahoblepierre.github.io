@@ -9,7 +9,9 @@ export type Project = {
   tagStyle: "solid" | "outline" | "dashed";
   // "wide": full-width photo above the text; "media-right"/"media-left": photo beside the text.
   layout: "wide" | "media-right" | "media-left";
-  image: { src: string; alt: string };
+  // A photo, or phone screenshots (transparent device mockups) shown side by side instead.
+  image?: { src: string; alt: string };
+  screens?: { src: string; alt: string }[];
   lead: string;
   detail?: string;
   link?: Link;

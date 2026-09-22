@@ -87,7 +87,11 @@ export const en: Dictionary = {
         tag: "Fintech · Money Transfer",
         tagStyle: "solid",
         layout: "wide",
-        image: { src: images.kori, alt: "City lights across the earth seen from orbit at night" },
+        screens: [
+          { src: images.koriScreens.home, alt: "Kori app home screen with the Send money button" },
+          { src: images.koriScreens.welcome, alt: "Kori app welcome screen with sign-up and log-in buttons" },
+          { src: images.koriScreens.send, alt: "Kori app transfer screen converting 70,000 XOF to 105 EUR" },
+        ],
         lead: "International money transfer across the UEMOA and CEMAC corridors, plus transfers to Canada and Europe. On the backend: Intercash card top-ups, virtual cards, transaction creation and retrieval, remitters, KYC, OTP, referrals and QR tracking, with asynchronous jobs and webhooks behind the money movement.",
         detail:
           "On mobile: payments, WebView redirections, PIN keypad, biometrics, Face ID and push notifications. In production: Ubuntu, Nginx, PHP-FPM, Supervisor, Laravel queues and scheduler, GitLab deployments, permissions and logs.",

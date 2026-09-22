@@ -1,6 +1,6 @@
 import type { Dictionary } from "@/content";
 import type { Project } from "@/content/types";
-import { ParallaxImage, Reveal, Stagger, StaggerItem } from "../motion";
+import { ParallaxImage, PhoneShowcase, Reveal, Stagger, StaggerItem } from "../motion";
 import { Counter, ExternalLink } from "../ui";
 
 type Labels = Dictionary["work"]["labels"];
@@ -77,7 +77,13 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
     return (
       <Reveal as="article" className={card}>
         <ProjectHeader project={project} index={index} wide />
-        <ParallaxImage src={project.image.src} alt={project.image.alt} className="mb-[clamp(24px,3vw,38px)] aspect-[16/10] rounded-[20px] md:aspect-[21/9]" />
+        {project.screens ? (
+          <PhoneShowcase screens={project.screens} className="mb-[clamp(24px,3vw,38px)] aspect-[5/4] rounded-[20px] md:aspect-[16/9] lg:aspect-[21/10]" />
+        ) : (
+          project.image && (
+            <ParallaxImage src={project.image.src} alt={project.image.alt} className="mb-[clamp(24px,3vw,38px)] aspect-[16/10] rounded-[20px] md:aspect-[21/9]" />
+          )
+        )}
         <div className="grid grid-cols-1 gap-[clamp(24px,4vw,64px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,.66fr)]">
           <div>
             <Lead project={project} compact={false} />
@@ -89,8 +95,12 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
   }
 
   const mediaLeft = project.layout === "media-left";
-  const figure = (
-    <ParallaxImage src={project.image.src} alt={project.image.alt} className="aspect-[4/5] rounded-[20px] max-lg:aspect-[4/3]" />
+  const figure = project.screens ? (
+    <PhoneShowcase screens={project.screens} className="aspect-[4/5] rounded-[20px] max-lg:aspect-square" />
+  ) : (
+    project.image && (
+      <ParallaxImage src={project.image.src} alt={project.image.alt} className="aspect-[4/5] rounded-[20px] max-lg:aspect-[4/3]" />
+    )
   );
   return (
     <Reveal

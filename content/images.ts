@@ -4,7 +4,12 @@ const unsplash = (id: string, width: number) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=75`;
 
 export const images = {
-  kori: unsplash("photo-1451187580459-43490279c0fa", 1800),
+  // Real app screens (device mockups with transparent background).
+  koriScreens: {
+    home: "/images/kori/home.webp",
+    welcome: "/images/kori/welcome.webp",
+    send: "/images/kori/send.webp",
+  },
   crmEvents: unsplash("photo-1596526131083-e8c633c948d2", 900),
   pourpieces: unsplash("photo-1563986768609-322da13575f3", 900),
   capSecure: unsplash("photo-1486406146926-c627a92ad1ab", 1800),

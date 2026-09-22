@@ -87,7 +87,11 @@ export const fr: Dictionary = {
         tag: "Fintech · Transfert d'argent",
         tagStyle: "solid",
         layout: "wide",
-        image: { src: images.kori, alt: "Lumières des villes sur la Terre vues depuis l'orbite, de nuit" },
+        screens: [
+          { src: images.koriScreens.home, alt: "Écran d'accueil de l'app Kori avec le bouton Envoyer de l'argent" },
+          { src: images.koriScreens.welcome, alt: "Écran de bienvenue de l'app Kori avec les boutons Inscription et Connexion" },
+          { src: images.koriScreens.send, alt: "Écran de transfert de l'app Kori : 70 000 XOF convertis en 105 EUR" },
+        ],
         lead: "Transfert d'argent international sur les corridors UEMOA et CEMAC, plus les transferts vers le Canada et l'Europe. Côté backend : recharge de carte Intercash, cartes virtuelles, création et récupération des transactions, remitters, KYC, OTP, referrals et QR tracking, avec les jobs asynchrones et les webhooks derrière les mouvements d'argent.",
         detail:
           "Côté mobile : paiements, redirections WebView, PIN keypad, biométrie, Face ID et notifications push. En production : Ubuntu, Nginx, PHP-FPM, Supervisor, queues et scheduler Laravel, déploiement GitLab, permissions et logs.",

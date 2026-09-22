@@ -143,3 +143,56 @@ export function ScrollProgress() {
     />
   );
 }
+
+/**
+ * Phone screenshots (transparent device mockups) fanned out side by side. The center phone is
+ * larger and raised; phones rise in one after the other, then drift at different speeds on scroll.
+ */
+export function PhoneShowcase({ screens, className }: { screens: { src: string; alt: string }[]; className?: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const ySide = useTransform(scrollYProgress, [0, 1], [70, -40]);
+  const yCenter = useTransform(scrollYProgress, [0, 1], [30, -30]);
+  const mid = Math.floor(screens.length / 2);
+
+  return (
+    <div ref={ref} className={`relative overflow-hidden bg-panel-2 ${className ?? ""}`}>
+      <div
+        aria-hidden="true"
+        className="absolute top-[38%] left-1/2 size-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent opacity-25 blur-[90px]"
+      />
+      <motion.div
+        className="relative flex h-full items-start justify-center gap-[2%] px-[4%] pt-[6%]"
+        initial="hidden"
+        whileInView="show"
+        viewport={VIEWPORT}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.14 } } }}
+      >
+        {screens.map((screen, i) => {
+          const side = i < mid ? -1 : i > mid ? 1 : 0;
+          return (
+            <motion.div
+              key={screen.src}
+              style={{ y: side === 0 ? yCenter : ySide }}
+              className={side === 0 ? "z-10 w-[36%] md:w-[25%]" : "mt-[8%] w-[30%] md:w-[21%]"}
+            >
+              <motion.img
+                src={screen.src}
+                alt={screen.alt}
+                loading="lazy"
+                className="block h-auto w-full drop-shadow-[0_30px_40px_rgba(0,0,0,.45)]"
+                variants={{
+                  hidden: { opacity: 0, y: 90, rotate: side * 8 },
+                  show: { opacity: 1, y: 0, rotate: side * 4, transition: { duration: 1, ease: EASE } },
+                }}
+                whileHover={{ y: -12, rotate: 0, transition: { duration: 0.35 } }}
+              />
+            </motion.div>
+          );
+        })}
+      </motion.div>
+      {/* Fade the phones out at the bottom edge instead of cutting them hard. */}
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[28%] bg-linear-to-t from-panel-2 to-transparent" />
+    </div>
+  );
+}
