@@ -245,7 +245,7 @@ export const en: Dictionary = {
         ],
         links: [
           { label: "pressecotedivoire.ci", href: "https://www.pressecotedivoire.ci/" },
-          { label: "pharma-consults.net", href: "https://pharma-consults.net/" },
+          { label: "pharma-consults.com", href: "https://www.pharma-consults.com/" },
           { label: "joobho.com", href: "https://joobho.com/" },
         ],
       },
