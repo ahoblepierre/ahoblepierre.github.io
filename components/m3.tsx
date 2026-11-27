@@ -82,7 +82,7 @@ export function IconButton({
   ...rest
 }: { label: string; className?: string; children: ReactNode } & Omit<
   ComponentProps<"button">,
-  "className" | "children" | "ref" | "onAnimationStart" | "onDrag" | "onDragEnd" | "onDragStart"
+  "className" | "children" | "onAnimationStart" | "onDrag" | "onDragEnd" | "onDragStart"
 >) {
   return (
     <motion.button

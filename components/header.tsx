@@ -1,6 +1,7 @@
 import type { Dictionary } from "@/content";
 import type { Locale } from "@/lib/i18n";
-import { LangSwitch, SectionRail, ThemeToggle } from "./header-controls";
+import { LangSwitch, ScrollFlag, SectionRail, SeedPicker, ThemeToggle } from "./header-controls";
+import { Button } from "./m3";
 
 export function Header({ t, lang }: { t: Dictionary; lang: Locale }) {
   const barLinks = [
@@ -27,26 +28,29 @@ export function Header({ t, lang }: { t: Dictionary; lang: Locale }) {
         {t.nav.skip}
       </a>
 
-      <header className="sticky top-0 z-40 flex items-center gap-3 bg-[color-mix(in_srgb,var(--ink)_78%,transparent)] px-[clamp(18px,4vw,56px)] py-4 backdrop-blur-[16px] sm:gap-5">
-        <a href="#top" className="mr-auto flex items-center gap-2.5 text-fg no-underline">
-          <span aria-hidden="true" className="block size-2.5 rounded-full bg-accent" />
-          <span className="font-mono text-[12.5px] font-bold tracking-[.18em] uppercase">Ahoble</span>
+      <ScrollFlag />
+      <header className="sticky top-0 z-40 flex h-16 items-center gap-1 bg-surface px-4 transition-colors duration-300 md:px-6 [html[data-scrolled]_&]:bg-surface-container">
+        <a href="#top" className="mr-auto flex items-center gap-2.5 rounded-full px-2 py-1 text-on-surface no-underline">
+          <span aria-hidden="true" className="block size-3 rounded-full bg-primary" />
+          <span className="type-title-l font-semibold">Ahoble</span>
         </a>
-        <nav className="hidden gap-[22px] font-mono text-[11px] tracking-[.16em] uppercase md:flex">
+        <nav className="mr-2 hidden gap-1 md:flex">
           {barLinks.map((l) => (
-            <a key={l.id} href={`#${l.id}`} className="text-fg-3 no-underline transition-colors hover:text-accent-ink">
+            <a
+              key={l.id}
+              href={`#${l.id}`}
+              className="state-layer inline-flex h-10 items-center rounded-full px-3 type-label-l text-on-surface-variant no-underline"
+            >
               {l.label}
             </a>
           ))}
         </nav>
+        <SeedPicker label={t.nav.pickColor} names={t.nav.colors} />
         <ThemeToggle label={t.nav.toggleTheme} />
         <LangSwitch lang={lang} label={t.nav.switchLang} />
-        <a
-          href="#contact"
-          className="hidden items-center rounded-full bg-accent px-5 py-[9px] font-mono text-[11px] font-bold tracking-[.14em] text-on-accent uppercase no-underline transition-colors hover:bg-accent-deep sm:inline-flex"
-        >
-          {t.nav.contact}
-        </a>
+        <div className="ml-2 hidden md:block xl:hidden">
+          <Button href="#contact">{t.nav.contact}</Button>
+        </div>
       </header>
 
       <SectionRail items={sections} label={t.nav.sections} />

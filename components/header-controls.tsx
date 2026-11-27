@@ -2,9 +2,12 @@
 
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, type MouseEvent } from "react";
-import { LANG_STORAGE_KEY, THEME_STORAGE_KEY, otherLocale, type Locale } from "@/lib/i18n";
-import { MoonIcon, SunIcon } from "./icons";
+import { useEffect, useRef, useState, type KeyboardEvent, type MouseEvent } from "react";
+import { LANG_STORAGE_KEY, SEED_STORAGE_KEY, THEME_STORAGE_KEY, otherLocale, type Locale } from "@/lib/i18n";
+import seeds from "@/lib/m3-seeds.json";
+import { CheckIcon, MoonIcon, PaletteIcon, SunIcon } from "./icons";
+import { IconButton } from "./m3";
+import { SPRING } from "./motion";
 
 /** Light/dark toggle. The icon swap is pure CSS so the server HTML is always right. */
 export function ThemeToggle({ label }: { label: string }) {
@@ -20,17 +23,116 @@ export function ThemeToggle({ label }: { label: string }) {
   }
 
   return (
-    <motion.button
-      type="button"
-      onClick={toggle}
-      aria-label={label}
-      title={label}
-      whileTap={{ scale: 0.9, rotate: -20 }}
-      className="inline-flex size-9 cursor-pointer items-center justify-center rounded-full border border-line-strong bg-transparent p-0 text-fg-2 transition-colors hover:border-accent-ink hover:text-accent-ink"
-    >
-      <SunIcon size={17} className="icon-sun" />
-      <MoonIcon size={17} className="icon-moon" />
-    </motion.button>
+    <IconButton label={label} onClick={toggle}>
+      <SunIcon size={20} className="icon-sun" />
+      <MoonIcon size={20} className="icon-moon" />
+    </IconButton>
+  );
+}
+
+/** Toggles html[data-scrolled] so the top app bar can switch to its scrolled surface (M3). */
+export function ScrollFlag() {
+  useEffect(() => {
+    const update = () => document.documentElement.toggleAttribute("data-scrolled", window.scrollY > 0);
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+  return null;
+}
+
+type SeedId = "lime" | "blue" | "violet" | "orange";
+
+/** Material You–style colour picker: the whole M3 palette follows the chosen seed. */
+export function SeedPicker({ label, names }: { label: string; names: Record<SeedId, string> }) {
+  const [open, setOpen] = useState(false);
+  const [current, setCurrent] = useState<string>("lime");
+  const root = useRef<HTMLDivElement>(null);
+  const button = useRef<HTMLButtonElement>(null);
+  const items = useRef<(HTMLButtonElement | null)[]>([]);
+
+  useEffect(() => {
+    if (!open) return;
+    items.current[Math.max(0, seeds.findIndex((s) => s.id === current))]?.focus();
+    const onDown = (e: PointerEvent) => {
+      if (!root.current?.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener("pointerdown", onDown);
+    return () => document.removeEventListener("pointerdown", onDown);
+  }, [open, current]);
+
+  function close() {
+    setOpen(false);
+    button.current?.focus();
+  }
+
+  function pick(id: string) {
+    document.documentElement.setAttribute("data-seed", id);
+    try {
+      localStorage.setItem(SEED_STORAGE_KEY, id);
+    } catch {
+      /* storage unavailable: the choice lasts for this page view */
+    }
+    setCurrent(id);
+    close();
+  }
+
+  function onKeyDown(e: KeyboardEvent) {
+    if (e.key === "Escape") return close();
+    if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return;
+    e.preventDefault();
+    const i = items.current.indexOf(document.activeElement as HTMLButtonElement);
+    const next = (i + (e.key === "ArrowDown" ? 1 : -1) + seeds.length) % seeds.length;
+    items.current[next]?.focus();
+  }
+
+  return (
+    <div ref={root} className="relative" onKeyDown={onKeyDown}>
+      <IconButton
+        ref={button}
+        label={label}
+        aria-haspopup="menu"
+        aria-expanded={open}
+        onClick={() => {
+          setCurrent(document.documentElement.getAttribute("data-seed") ?? "lime");
+          setOpen((o) => !o);
+        }}
+      >
+        <PaletteIcon size={20} />
+      </IconButton>
+      {open && (
+        <motion.div
+          role="menu"
+          aria-label={label}
+          initial={{ opacity: 0, scale: 0.9, y: -4 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={SPRING}
+          className="absolute top-12 right-0 z-50 flex origin-top-right gap-2 rounded-lg bg-surface-container p-3 shadow-2"
+        >
+          {seeds.map((s, i) => {
+            const on = s.id === current;
+            return (
+              <button
+                key={s.id}
+                ref={(el) => {
+                  items.current[i] = el;
+                }}
+                type="button"
+                role="menuitemradio"
+                aria-checked={on}
+                aria-label={names[s.id as SeedId]}
+                title={names[s.id as SeedId]}
+                onClick={() => pick(s.id)}
+                style={{ background: s.hex }}
+                className={`grid size-10 cursor-pointer place-items-center text-black/80 transition-[border-radius] duration-300 ${on ? "rounded-md" : "rounded-full"}`}
+              >
+                {on && <CheckIcon size={20} />}
+              </button>
+            );
+          })}
+        </motion.div>
+      )}
+    </div>
   );
 }
 
@@ -56,18 +158,18 @@ export function LangSwitch({ lang, label }: { lang: Locale; label: string }) {
       onClick={go}
       aria-label={label}
       title={label}
-      className="relative inline-flex items-center rounded-full border border-line-strong p-[3px] font-mono text-[10.5px] font-bold tracking-[.14em] no-underline"
+      className="relative inline-flex h-10 items-center rounded-full border border-outline p-1 type-label-l no-underline"
     >
       {(["en", "fr"] as const).map((code) => (
         <span
           key={code}
-          className={`relative rounded-full px-[11px] py-[5px] ${code === lang ? "text-on-accent" : "text-fg-3"}`}
+          className={`relative rounded-full px-3 py-1.5 ${code === lang ? "text-on-secondary-container" : "text-on-surface-variant"}`}
         >
           {code === lang && (
             <motion.span
               layoutId="lang-pill"
-              className="absolute inset-0 rounded-full bg-accent"
-              transition={{ type: "spring", stiffness: 400, damping: 32 }}
+              className="absolute inset-0 rounded-full bg-secondary-container"
+              transition={SPRING}
             />
           )}
           <span className="relative">{code.toUpperCase()}</span>
