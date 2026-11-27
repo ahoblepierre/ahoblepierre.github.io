@@ -24,7 +24,7 @@ const rise: Variants = {
 
 function Badge({ label }: { label: string }) {
   return (
-    <span className="absolute top-3 left-3 z-10 rounded-full border border-line-strong bg-[color-mix(in_srgb,var(--panel-2)_80%,transparent)] px-2.5 py-1 font-mono text-[9.5px] tracking-[.18em] text-fg-3 uppercase backdrop-blur md:top-4 md:left-4">
+    <span className="absolute top-3 left-3 z-10 rounded-full border border-outline bg-[color-mix(in_srgb,var(--md-sys-color-surface-container-high)_80%,transparent)] px-2.5 py-1 text-[9.5px] tracking-[.18em] text-on-surface-variant uppercase backdrop-blur md:top-4 md:left-4">
       {label}
     </span>
   );
@@ -46,7 +46,7 @@ export function ScheduleArt({ data, className = "" }: { data: ScheduleIllustrati
     <motion.div
       role="img"
       aria-label={`${data.badge}: ${data.modelsCaption} — ${data.models.join(" → ")}`}
-      className={`relative overflow-hidden bg-panel-2 ${className}`}
+      className={`relative overflow-hidden bg-surface-container-high ${className}`}
       variants={container}
       initial="hidden"
       whileInView="show"
@@ -55,7 +55,7 @@ export function ScheduleArt({ data, className = "" }: { data: ScheduleIllustrati
       <Badge label={data.badge} />
       <div
         aria-hidden="true"
-        className="absolute -top-1/3 -left-1/5 size-[70%] rounded-full bg-accent opacity-[.12] blur-[100px]"
+        className="absolute -top-1/3 -left-1/5 size-[70%] rounded-full bg-primary opacity-[.12] blur-[100px]"
       />
 
       <div className="relative grid h-full grid-cols-1 gap-[4%] p-[5%] pt-12 md:grid-cols-[minmax(0,1fr)_minmax(0,.36fr)] md:p-[4%] md:pt-[5%]">
@@ -63,23 +63,23 @@ export function ScheduleArt({ data, className = "" }: { data: ScheduleIllustrati
         <div className="grid grid-cols-[auto_repeat(7,minmax(0,1fr))] grid-rows-[auto_repeat(3,minmax(0,1fr))] gap-1 md:gap-2">
           <span />
           {data.days.map((d) => (
-            <motion.span key={d} variants={rise} className="pb-1 text-center font-mono text-[9px] tracking-[.14em] text-fg-3 uppercase md:text-[10px]">
+            <motion.span key={d} variants={rise} className="pb-1 text-center text-[9px] tracking-[.14em] text-on-surface-variant uppercase md:text-[10px]">
               {d}
             </motion.span>
           ))}
           {data.shifts.map((shift, s) => (
             <div key={shift} className="contents">
-              <motion.span variants={rise} className="self-center pr-1 font-mono text-[8.5px] tracking-[.06em] text-fg-3 md:pr-2 md:text-[10px]">
+              <motion.span variants={rise} className="self-center pr-1 text-[8.5px] tracking-[.06em] text-on-surface-variant md:pr-2 md:text-[10px]">
                 {shift}
               </motion.span>
               {data.days.map((_, d) => {
                 const hit = slot(d, s);
                 return (
-                  <div key={d} className="relative min-h-9 rounded-md border border-line bg-panel md:min-h-0 md:rounded-xl">
+                  <div key={d} className="relative min-h-9 rounded-md border border-outline-variant bg-surface-container md:min-h-0 md:rounded-xl">
                     {hit && (
                       <motion.div
                         variants={pop}
-                        className={`absolute inset-[3px] flex items-center justify-center rounded-[5px] font-mono text-[9px] font-bold tracking-[.08em] md:inset-1 md:rounded-lg md:text-[11px] ${hit[3] ? "bg-accent text-on-accent" : "border border-[color-mix(in_srgb,var(--accent-ink)_45%,transparent)] text-accent-ink"}`}
+                        className={`absolute inset-[3px] flex items-center justify-center rounded-[5px] text-[9px] font-bold tracking-[.08em] md:inset-1 md:rounded-lg md:text-[11px] ${hit[3] ? "bg-primary text-on-primary" : "border border-[color-mix(in_srgb,var(--md-sys-color-primary)_45%,transparent)] text-primary"}`}
                       >
                         {hit[2]}
                       </motion.div>
@@ -93,7 +93,7 @@ export function ScheduleArt({ data, className = "" }: { data: ScheduleIllustrati
 
         {/* Data model: AgentTimeTable → TimeTable → TimeTableDay */}
         <div className="hidden flex-col justify-center md:flex">
-          <motion.div variants={rise} className="mb-3 font-mono text-[10px] tracking-[.18em] text-fg-3 uppercase">
+          <motion.div variants={rise} className="mb-3 text-[10px] tracking-[.18em] text-on-surface-variant uppercase">
             {data.modelsCaption}
           </motion.div>
           {data.models.map((model, i) => (
@@ -101,15 +101,15 @@ export function ScheduleArt({ data, className = "" }: { data: ScheduleIllustrati
               {i > 0 && (
                 <div className="ml-5 flex h-7 items-center gap-2">
                   <motion.span
-                    className="block h-full w-px origin-top bg-accent-ink"
+                    className="block h-full w-px origin-top bg-primary"
                     variants={{ hidden: { scaleY: 0 }, show: { scaleY: 1, transition: { duration: 0.5, ease: EASE } } }}
                   />
-                  <span className="font-mono text-[9px] text-fg-3">1 → n</span>
+                  <span className="text-[9px] text-on-surface-variant">1 → n</span>
                 </div>
               )}
               <motion.div
                 variants={rise}
-                className={`w-full rounded-xl border px-3 py-2.5 font-mono text-[11px] tracking-[.04em] lg:text-xs ${i === 0 ? "border-accent bg-accent text-on-accent" : "border-line-strong bg-panel text-fg"}`}
+                className={`w-full rounded-xl border px-3 py-2.5 text-[11px] tracking-[.04em] lg:text-xs ${i === 0 ? "border-primary bg-primary text-on-primary" : "border-outline bg-surface-container text-on-surface"}`}
               >
                 {model}
               </motion.div>
@@ -149,7 +149,7 @@ export function ExchangeArt({ data, className = "" }: { data: ExchangeIllustrati
       ref={ref}
       role="img"
       aria-label={`${data.badge}: ${data.send} ${sendText} XOF — ${data.receive} ${formatEur.format(SEND_XOF / XOF_PER_EUR)} EUR`}
-      className={`relative flex items-center justify-center overflow-hidden bg-panel-2 px-[8%] py-14 ${className}`}
+      className={`relative flex items-center justify-center overflow-hidden bg-surface-container-high px-[8%] py-14 ${className}`}
       variants={container}
       initial="hidden"
       whileInView="show"
@@ -158,60 +158,60 @@ export function ExchangeArt({ data, className = "" }: { data: ExchangeIllustrati
       <Badge label={data.badge} />
       <div
         aria-hidden="true"
-        className="absolute top-1/2 left-1/2 size-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent opacity-20 blur-[90px]"
+        className="absolute top-1/2 left-1/2 size-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary opacity-20 blur-[90px]"
       />
 
       <motion.div
         variants={rise}
-        className="relative w-full max-w-[340px] rounded-[28px] border border-line bg-panel p-5 shadow-[0_30px_60px_rgba(0,0,0,.35)] md:p-6"
+        className="relative w-full max-w-[340px] rounded-xl bg-surface-container p-5 shadow-3 md:p-6"
       >
         <div className="mb-5 flex items-center gap-2">
-          <span className="block size-2 rounded-full bg-accent" />
-          <span className="font-display text-sm font-extrabold tracking-[-.01em]">SikaExchange</span>
+          <span className="block size-2 rounded-full bg-primary" />
+          <span className="text-sm font-extrabold tracking-[-.01em]">SikaExchange</span>
         </div>
 
-        <motion.div variants={rise} className="rounded-2xl bg-panel-2 p-4">
-          <div className="label-mono mb-1.5">{data.send}</div>
+        <motion.div variants={rise} className="rounded-2xl bg-surface-container-high p-4">
+          <div className="type-label-m text-on-surface-variant mb-1.5">{data.send}</div>
           <div className="flex items-baseline justify-between gap-3">
-            <span className="font-display text-[26px] leading-none font-extrabold tracking-[-.02em] md:text-[30px]">{sendText}</span>
-            <span className="rounded-full border border-line-strong px-2.5 py-1 font-mono text-[10px] font-bold tracking-[.12em]">XOF</span>
+            <span className="text-[26px] leading-none font-extrabold tracking-[-.02em] md:text-[30px]">{sendText}</span>
+            <span className="rounded-full border border-outline px-2.5 py-1 text-[10px] font-bold tracking-[.12em]">XOF</span>
           </div>
         </motion.div>
 
         <div className="relative z-10 -my-3 flex justify-center">
           <motion.span
             variants={{ hidden: { rotate: -180, scale: 0 }, show: { rotate: 0, scale: 1, transition: { type: "spring", stiffness: 300, damping: 20 } } }}
-            className="flex size-9 items-center justify-center rounded-full border-4 border-panel bg-accent text-on-accent"
+            className="flex size-9 items-center justify-center rounded-full border-4 border-surface-container bg-primary text-on-primary"
             aria-hidden="true"
           >
             ↓
           </motion.span>
         </div>
 
-        <motion.div variants={rise} className="rounded-2xl border border-[color-mix(in_srgb,var(--accent-ink)_35%,transparent)] p-4">
-          <div className="label-mono mb-1.5">{data.receive}</div>
+        <motion.div variants={rise} className="rounded-2xl border border-[color-mix(in_srgb,var(--md-sys-color-primary)_35%,transparent)] p-4">
+          <div className="type-label-m text-on-surface-variant mb-1.5">{data.receive}</div>
           <div className="flex items-baseline justify-between gap-3">
-            <motion.span className="font-display text-[26px] leading-none font-extrabold tracking-[-.02em] text-accent-ink tabular-nums md:text-[30px]">
+            <motion.span className="text-[26px] leading-none font-extrabold tracking-[-.02em] text-primary tabular-nums md:text-[30px]">
               {receivedText}
             </motion.span>
-            <span className="rounded-full bg-accent px-2.5 py-1 font-mono text-[10px] font-bold tracking-[.12em] text-on-accent">EUR</span>
+            <span className="rounded-full bg-primary px-2.5 py-1 text-[10px] font-bold tracking-[.12em] text-on-primary">EUR</span>
           </div>
         </motion.div>
 
-        <motion.div variants={rise} className="mt-3 mb-4 flex justify-between font-mono text-[10px] tracking-[.06em] text-fg-3">
+        <motion.div variants={rise} className="mt-3 mb-4 flex justify-between text-[10px] tracking-[.06em] text-on-surface-variant">
           <span>{data.rateLabel}</span>
           <span>1 EUR = {rateText} XOF</span>
         </motion.div>
 
         <div className="mb-4 grid grid-cols-2 gap-2">
           {data.methods.map((m) => (
-            <motion.span key={m} variants={pop} className="rounded-full bg-panel-2 px-2 py-2 text-center text-[11px] whitespace-nowrap text-fg-2 md:px-3 md:text-[12px]">
+            <motion.span key={m} variants={pop} className="rounded-full bg-surface-container-high px-2 py-2 text-center text-[11px] whitespace-nowrap text-on-surface-variant md:px-3 md:text-[12px]">
               {m}
             </motion.span>
           ))}
         </div>
 
-        <motion.div variants={rise} className="rounded-full bg-accent py-3 text-center text-[14px] font-semibold text-on-accent">
+        <motion.div variants={rise} className="rounded-full bg-primary py-3 text-center text-[14px] font-semibold text-on-primary">
           {data.cta}
         </motion.div>
       </motion.div>

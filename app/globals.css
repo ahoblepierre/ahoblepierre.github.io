@@ -174,7 +174,7 @@ html[data-theme="light"] {
 }
 
 @utility section-space {
-  padding-bottom: clamp(88px, 13vw, 180px);
+  padding-bottom: clamp(80px, 10vw, 128px);
 }
 
 @layer base {
@@ -233,7 +233,7 @@ html[data-theme="light"] {
     pointer-events: none;
   }
   .tint::before {
-    background: var(--accent);
+    background: var(--md-sys-color-primary);
     mix-blend-mode: color;
     opacity: 0.42;
   }

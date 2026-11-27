@@ -2,22 +2,10 @@
 
 import { motion } from "motion/react";
 import type { ComponentProps, ReactNode } from "react";
+import { buttonClass, type ButtonVariant } from "./m3-styles";
 import { SPRING } from "./motion";
 
 /** Material 3 Expressive building blocks. Colours come from the M3 roles in app/globals.css. */
-
-const BUTTON = {
-  filled: "bg-primary text-on-primary",
-  tonal: "bg-secondary-container text-on-secondary-container",
-  outlined: "border border-outline text-primary",
-  text: "text-primary",
-} as const;
-
-export type ButtonVariant = keyof typeof BUTTON;
-
-/** Classes for an M3 button, for elements that must stay their own component (e.g. CvLink). */
-export const buttonClass = (variant: ButtonVariant, className = "") =>
-  `state-layer inline-flex h-10 items-center justify-center gap-2 rounded-full px-6 type-label-l no-underline cursor-pointer ${BUTTON[variant]} ${className}`;
 
 // Expressive press: the pill squares off a little, on a spring.
 const PRESS = { whileTap: { borderRadius: 12 }, transition: SPRING } as const;

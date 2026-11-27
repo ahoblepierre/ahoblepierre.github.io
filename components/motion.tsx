@@ -155,7 +155,7 @@ export function ScrollProgress() {
   return (
     <motion.div
       aria-hidden="true"
-      className="fixed inset-x-0 top-0 z-50 h-[3px] origin-left bg-accent"
+      className="fixed inset-x-0 top-0 z-50 h-[3px] origin-left bg-primary"
       style={{ scaleX }}
     />
   );
@@ -185,10 +185,10 @@ export function PhoneShowcase({
   const mid = Math.floor(screens.length / 2);
 
   return (
-    <div ref={ref} className={`relative overflow-hidden bg-panel-2 ${className ?? ""}`}>
+    <div ref={ref} className={`relative overflow-hidden bg-surface-container-high ${className ?? ""}`}>
       <div
         aria-hidden="true"
-        className="absolute top-[38%] left-1/2 size-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent opacity-25 blur-[90px]"
+        className="absolute top-[38%] left-1/2 size-[62%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary opacity-25 blur-[90px]"
       />
       <motion.div
         className={`relative flex h-full justify-center ${compact ? "items-center px-[2%]" : "items-start gap-[2%] px-[4%] pt-[6%]"}`}
@@ -231,7 +231,7 @@ export function PhoneShowcase({
         })}
       </motion.div>
       {/* Fade the phones out at the bottom edge instead of cutting them hard. */}
-      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[28%] bg-linear-to-t from-panel-2 to-transparent" />
+      <div aria-hidden="true" className="absolute inset-x-0 bottom-0 h-[28%] bg-linear-to-t from-surface-container-high to-transparent" />
     </div>
   );
 }
