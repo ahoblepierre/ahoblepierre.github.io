@@ -13,7 +13,7 @@ export function WhatIBuild({ t }: { t: Dictionary }) {
         {t.build.items.map((item) => (
           <StaggerItem
             key={item.title}
-            className="state-layer rounded-xl bg-surface-container-low p-6 text-on-surface transition-[border-radius] duration-500 ease-emphasized hover:rounded-2xl"
+            className="state-layer rounded-xl bg-surface-container-low p-6 text-on-surface transition-[border-radius] duration-500 ease-emphasized motion-reduce:transition-none hover:rounded-2xl"
           >
             <h3 className="m-0 mb-3 type-title-l font-medium">{item.title}</h3>
             <p className="m-0 type-body-l text-pretty text-on-surface-variant">{item.text}</p>
@@ -32,7 +32,7 @@ export function HowIWork({ t }: { t: Dictionary }) {
           <Counter n={2} className="text-on-primary-container" />
           <h2 className="m-0 type-headline-l-emph">{t.method.title}</h2>
         </div>
-        <p className="m-0 max-w-[40ch] type-label-l opacity-80">{t.method.flow}</p>
+        <p className="m-0 max-w-[40ch] type-label-l">{t.method.flow}</p>
       </div>
       <Stagger as="ol" stagger={0.1} className="m-0 grid list-none grid-cols-1 gap-3 p-0 md:grid-cols-2">
         {t.method.steps.map((step, i) => (

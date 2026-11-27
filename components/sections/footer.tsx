@@ -3,7 +3,7 @@ import { site } from "@/content/site";
 import { GitHubIcon, LinkedInIcon, MailIcon, PhoneIcon } from "../icons";
 
 const iconLink =
-  "state-layer inline-flex size-12 items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant transition-[border-radius] duration-300 hover:rounded-full";
+  "state-layer inline-flex size-12 items-center justify-center rounded-lg bg-surface-container-high text-on-surface-variant transition-[border-radius] duration-300 motion-reduce:transition-none hover:rounded-full";
 
 export function Footer({ t }: { t: Dictionary }) {
   return (

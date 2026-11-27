@@ -1,14 +1,19 @@
 "use client";
 
-import { motion } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import type { ComponentProps, ReactNode } from "react";
 import { buttonClass, type ButtonVariant } from "./m3-styles";
 import { SPRING } from "./motion";
 
 /** Material 3 Expressive building blocks. Colours come from the M3 roles in app/globals.css. */
 
-// Expressive press: the pill squares off a little, on a spring.
-const PRESS = { whileTap: { borderRadius: 12 }, transition: SPRING } as const;
+// Expressive press: the pill squares off a little, on a spring. MotionConfig's reducedMotion
+// only covers transforms, so the shape morph is switched off here explicitly.
+function usePress() {
+  const reduce = useReducedMotion();
+  // Keep whileTap present either way: Motion adds tabindex for it, and server and client must match.
+  return { whileTap: reduce ? {} : { borderRadius: 12 }, transition: SPRING } as const;
+}
 
 type ButtonProps = {
   variant?: ButtonVariant;
@@ -20,16 +25,17 @@ type ButtonProps = {
 
 export function Button({ variant = "filled", href, icon, className, children, ...rest }: ButtonProps) {
   const cls = buttonClass(variant, className);
+  const press = usePress();
   if (href) {
     return (
-      <motion.a href={href} className={cls} {...PRESS}>
+      <motion.a href={href} className={cls} {...press}>
         {icon}
         {children}
       </motion.a>
     );
   }
   return (
-    <motion.button type="button" className={cls} {...PRESS} {...rest}>
+    <motion.button type="button" className={cls} {...press} {...rest}>
       {icon}
       {children}
     </motion.button>
@@ -49,13 +55,14 @@ export function Fab({
   extended?: boolean;
   className?: string;
 }) {
+  const press = usePress();
   return (
     <motion.a
       href={href}
       aria-label={extended ? undefined : label}
       title={label}
       className={`state-layer inline-flex h-14 items-center justify-center gap-3 rounded-lg bg-primary-container text-on-primary-container shadow-3 no-underline ${extended ? "px-5 type-label-l" : "w-14"} ${className}`}
-      {...PRESS}
+      {...press}
     >
       {icon}
       {extended && <span>{label}</span>}

@@ -35,7 +35,7 @@ export function Header({ t, lang }: { t: Dictionary; lang: Locale }) {
           <span aria-hidden="true" className="block size-3 rounded-full bg-primary" />
           <span className="type-title-l font-semibold">Ahoble</span>
         </a>
-        <nav className="mr-2 hidden gap-1 md:flex xl:hidden">
+        <nav className="mr-2 hidden gap-1 lg:flex xl:hidden">
           {barLinks.map((l) => (
             <a
               key={l.id}

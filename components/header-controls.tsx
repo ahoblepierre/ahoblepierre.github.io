@@ -124,7 +124,7 @@ export function SeedPicker({ label, names }: { label: string; names: Record<Seed
                 title={names[s.id as SeedId]}
                 onClick={() => pick(s.id)}
                 style={{ background: s.hex }}
-                className={`grid size-10 cursor-pointer place-items-center text-black/80 transition-[border-radius] duration-300 ${on ? "rounded-md" : "rounded-full"}`}
+                className={`grid size-10 cursor-pointer place-items-center text-black/80 transition-[border-radius] duration-300 motion-reduce:transition-none ${on ? "rounded-md" : "rounded-full"}`}
               >
                 {on && <CheckIcon size={20} />}
               </button>
@@ -256,7 +256,7 @@ export function NavigationBar({ items, label, contact }: { items: NavItem[]; lab
     <>
       {/* The FAB steps aside once the contact section (and its submit button) is on screen. */}
       <div
-        className={`fixed right-4 bottom-[calc(96px+env(safe-area-inset-bottom))] z-45 transition-[opacity,scale] duration-300 md:hidden ${contactInView ? "pointer-events-none scale-75 opacity-0" : ""}`}
+        className={`fixed right-4 bottom-[calc(96px+env(safe-area-inset-bottom))] z-45 transition-[opacity,scale] duration-300 motion-reduce:transition-none md:hidden ${contactInView ? "pointer-events-none scale-75 opacity-0" : ""}`}
       >
         {contact}
       </div>
