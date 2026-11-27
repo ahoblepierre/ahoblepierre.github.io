@@ -7,13 +7,12 @@ import { ContactForm } from "../contact-form";
 import { DownloadIcon, GitHubIcon, LinkedInIcon, MailIcon, PhoneIcon } from "../icons";
 import { Reveal, Stagger, StaggerItem } from "../motion";
 
-const rowLink =
-  "text-fg no-underline border-b border-[color-mix(in_srgb,var(--accent-ink)_50%,transparent)] transition-colors hover:text-accent-ink";
+const rowLink = "text-primary type-body-l underline decoration-1 underline-offset-4 hover:decoration-2";
 
 function Row({ icon, label, children }: { icon: ReactNode; label: string; children: ReactNode }) {
   return (
-    <StaggerItem className="flex flex-wrap justify-between gap-x-[18px] gap-y-2 border-t border-line py-4">
-      <dt className="label-mono flex items-center gap-[9px]">
+    <StaggerItem className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 border-t border-outline-variant py-4 first:border-t-0">
+      <dt className="flex items-center gap-3 type-label-l text-on-surface-variant">
         {icon}
         {label}
       </dt>
@@ -26,17 +25,17 @@ export function Contact({ t, lang }: { t: Dictionary; lang: Locale }) {
   const { contact } = t;
   const icon = { className: "flex-none" };
   return (
-    <section id="contact" className="px-[clamp(18px,4vw,56px)] pb-[clamp(24px,3vw,40px)]">
-      <Reveal className="mx-auto max-w-[1400px] rounded-[clamp(24px,3vw,40px)] bg-panel p-[clamp(28px,5vw,88px)]">
-        <div className="grid grid-cols-1 items-start gap-[clamp(32px,5vw,88px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,.8fr)]">
+    <section id="contact" className="px-4 pb-6 md:px-6">
+      <Reveal className="mx-auto max-w-[1400px] rounded-2xl bg-surface-container-low p-5 md:p-10 lg:p-16">
+        <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,.8fr)] lg:gap-16">
           <div>
-            <h2 className="m-0 mb-[26px] max-w-[13ch] font-display text-[clamp(38px,6.6vw,96px)] leading-[.95] font-extrabold tracking-[-.04em]">
+            <h2 className="m-0 mb-6 max-w-[13ch] type-display-l-emph text-on-surface">
               {contact.title}
             </h2>
-            <p className="m-0 mb-[clamp(30px,4vw,44px)] max-w-[44ch] text-[clamp(16.5px,1.3vw,19.5px)] text-pretty text-fg-2">
+            <p className="m-0 mb-8 max-w-[44ch] type-body-l text-pretty text-on-surface-variant md:text-lg md:leading-7">
               {contact.text}
             </p>
-            <Stagger as="dl" stagger={0.08} className="m-0 border-b border-line">
+            <Stagger as="dl" stagger={0.08} className="m-0 rounded-xl bg-surface-container px-5">
               <Row icon={<MailIcon {...icon} />} label={contact.labels.email}>
                 <a href={`mailto:${site.email}`} className={rowLink}>
                   {site.email}

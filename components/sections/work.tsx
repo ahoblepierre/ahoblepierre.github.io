@@ -2,26 +2,27 @@ import type { Dictionary } from "@/content";
 import type { Project } from "@/content/types";
 import { ExchangeArt, ScheduleArt } from "../illustrations";
 import { ParallaxImage, PhoneShowcase, Reveal, Stagger, StaggerItem } from "../motion";
+import { buttonClass } from "../m3-styles";
 import { Counter, ExternalLink } from "../ui";
 
 type Labels = Dictionary["work"]["labels"];
 
 const tagClass: Record<Project["tagStyle"], string> = {
-  solid: "bg-accent text-on-accent px-3.5 py-1.5",
-  outline: "text-accent-ink border border-[color-mix(in_srgb,var(--accent-ink)_45%,transparent)] px-[13px] py-[5px]",
-  dashed: "text-fg-2 border border-dashed border-line-strong px-[13px] py-[5px]",
+  solid: "bg-primary text-on-primary",
+  outline: "bg-secondary-container text-on-secondary-container",
+  dashed: "border border-outline-variant text-on-surface-variant",
 };
 
 function ProjectHeader({ project, index, wide }: { project: Project; index: number; wide: boolean }) {
   return (
-    <div className={`flex flex-wrap items-baseline gap-x-[22px] gap-y-3 ${wide ? "mb-[clamp(24px,3vw,38px)]" : "mb-[22px]"}`}>
-      <span className="font-mono text-xs tracking-[.2em] text-accent-ink">{String(index + 1).padStart(2, "0")}</span>
+    <div className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-3">
+      <span className="grid size-10 place-items-center rounded-full bg-primary type-label-l text-on-primary">{String(index + 1).padStart(2, "0")}</span>
       <h3
-        className={`m-0 font-display leading-none font-extrabold ${wide ? "text-[clamp(30px,4.8vw,64px)] tracking-[-.035em]" : "text-[clamp(28px,4vw,52px)] tracking-[-.03em]"}`}
+        className={`m-0 text-on-surface ${wide ? "type-headline-l-emph" : "type-headline-m font-semibold"}`}
       >
         {project.name}
       </h3>
-      <span className={`rounded-full font-mono text-[10.5px] tracking-[.16em] uppercase ${tagClass[project.tagStyle]}`}>
+      <span className={`inline-flex h-8 items-center rounded-sm px-3 type-label-l ${tagClass[project.tagStyle]}`}>
         {project.tag}
       </span>
     </div>
@@ -38,12 +39,12 @@ function Meta({ project, labels, columns }: { project: Project; labels: Labels; 
     <Stagger
       as="dl"
       stagger={0.07}
-      className={`m-0 grid content-start ${columns ? "grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-x-7" : "grid-cols-1 border-b border-line"}`}
+      className={`m-0 grid content-start ${columns ? "grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-x-6" : "grid-cols-1"}`}
     >
       {rows.map((row) => (
-        <StaggerItem key={row.label} className="border-t border-line py-3.5">
-          <dt className="label-mono mb-[7px]">{row.label}</dt>
-          <dd className="m-0 text-[15.5px]">{row.value}</dd>
+        <StaggerItem key={row.label} className="border-t border-outline-variant py-3">
+          <dt className="mb-1 type-label-m text-on-surface-variant">{row.label}</dt>
+          <dd className="m-0 type-body-l text-on-surface">{row.value}</dd>
         </StaggerItem>
       ))}
     </Stagger>
@@ -54,15 +55,15 @@ function Lead({ project, compact }: { project: Project; compact: boolean }) {
   return (
     <>
       <p
-        className={`m-0 max-w-[58ch] text-[clamp(16.5px,1.2vw,18.5px)] text-pretty text-fg ${project.detail || project.link ? "mb-4" : compact ? "mb-[26px]" : ""}`}
+        className={`m-0 max-w-[58ch] type-body-l text-pretty text-on-surface md:text-lg md:leading-7 ${project.detail || project.link ? "mb-4" : compact ? "mb-6" : ""}`}
       >
         {project.lead}
       </p>
-      {project.detail && <p className="m-0 mb-[22px] max-w-[58ch] text-pretty text-fg-3">{project.detail}</p>}
+      {project.detail && <p className="m-0 mb-5 max-w-[58ch] type-body-m text-pretty text-on-surface-variant">{project.detail}</p>}
       {project.link && (
         <ExternalLink
           href={project.link.href}
-          className="inline-flex items-center gap-2 rounded-full border border-line-strong px-[22px] py-3 font-mono text-[11px] tracking-[.14em] text-fg uppercase no-underline transition-colors hover:border-accent-ink hover:text-accent-ink"
+          className={buttonClass("outlined")}
         >
           {project.link.label} <span aria-hidden="true">↗</span>
         </ExternalLink>
@@ -74,8 +75,8 @@ function Lead({ project, compact }: { project: Project; compact: boolean }) {
 /** The visual of a project card: coded illustration, phone screens or photo, in that order of preference. */
 function ProjectMedia({ project, wide }: { project: Project; wide: boolean }) {
   const frame = wide
-    ? "mb-[clamp(24px,3vw,38px)] rounded-[20px] md:aspect-[16/9] lg:aspect-[21/10]"
-    : "rounded-[20px] lg:aspect-[4/5]";
+    ? "mb-6 rounded-xl md:aspect-[16/9] lg:aspect-[21/10]"
+    : "rounded-xl lg:aspect-[4/5]";
   const art = project.illustration;
   if (art?.kind === "schedule") return <ScheduleArt data={art} className={frame} />;
   if (art?.kind === "exchange") return <ExchangeArt data={art} className={frame} />;
@@ -93,21 +94,21 @@ function ProjectMedia({ project, wide }: { project: Project; wide: boolean }) {
       <ParallaxImage
         src={project.image.src}
         alt={project.image.alt}
-        className={wide ? "mb-[clamp(24px,3vw,38px)] aspect-[16/10] rounded-[20px] md:aspect-[21/9]" : "aspect-[4/3] rounded-[20px] lg:aspect-[4/5]"}
+        className={wide ? "mb-6 aspect-[16/10] rounded-xl md:aspect-[21/9]" : "aspect-[4/3] rounded-xl lg:aspect-[4/5]"}
       />
     );
   return null;
 }
 
 function ProjectCard({ project, index, labels, last }: { project: Project; index: number; labels: Labels; last: boolean }) {
-  const card = `rounded-[28px] bg-panel p-[clamp(24px,3.6vw,56px)] ${last ? "mb-[clamp(88px,13vw,180px)]" : "mb-[clamp(20px,2.4vw,32px)]"}`;
+  const card = `rounded-2xl bg-surface-container-low p-5 md:p-8 lg:p-12 ${last ? "mb-20 lg:mb-32" : "mb-3 md:mb-4"}`;
 
   if (project.layout === "wide") {
     return (
       <Reveal as="article" className={card}>
         <ProjectHeader project={project} index={index} wide />
         <ProjectMedia project={project} wide />
-        <div className="grid grid-cols-1 gap-[clamp(24px,4vw,64px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,.66fr)]">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,.66fr)] lg:gap-14">
           <div>
             <Lead project={project} compact={false} />
           </div>
@@ -122,7 +123,7 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
   return (
     <Reveal
       as="article"
-      className={`${card} grid grid-cols-1 items-center gap-[clamp(24px,4vw,64px)] ${mediaLeft ? "lg:grid-cols-[minmax(0,.78fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,.78fr)]"}`}
+      className={`${card} grid grid-cols-1 items-center gap-8 lg:gap-14 ${mediaLeft ? "lg:grid-cols-[minmax(0,.78fr)_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)_minmax(0,.78fr)]"}`}
     >
       {mediaLeft && figure}
       <div>
@@ -138,14 +139,14 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
 export function SelectedWork({ t }: { t: Dictionary }) {
   const { projects, labels } = t.work;
   return (
-    <section id="work" className="scroll-mt-24">
-      <Reveal className="pb-[clamp(40px,6vw,72px)]">
+    <section id="work">
+      <Reveal className="pb-8 md:pb-12">
         <Counter n={3} />
         <div className="flex flex-wrap items-end justify-between gap-5">
-          <h2 className="m-0 font-display text-[clamp(34px,5.6vw,80px)] leading-[.98] font-extrabold tracking-[-.035em]">
+          <h2 className="m-0 type-headline-l-emph text-on-surface">
             {t.work.title}
           </h2>
-          <p className="m-0 font-mono text-[11px] tracking-[.18em] text-fg-3 uppercase">{t.work.summary}</p>
+          <p className="m-0 type-label-l text-on-surface-variant">{t.work.summary}</p>
         </div>
       </Reveal>
       {projects.map((project, i) => (

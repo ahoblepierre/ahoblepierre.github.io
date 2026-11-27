@@ -17,7 +17,7 @@ function RevealWord({ children, index, accent }: { children: string; index: numb
     // Padding + negative margin keep descenders (p, q, g) from being clipped by the mask.
     <span className="-mb-[.14em] inline-block overflow-hidden pb-[.14em] align-bottom">
       <motion.span
-        className={`inline-block ${accent ? "text-accent-ink" : ""}`}
+        className={`inline-block ${accent ? "text-primary" : ""}`}
         initial={{ y: "110%" }}
         animate={{ y: 0 }}
         transition={{ duration: 0.8, ease: EASE, delay: 0.15 + index * WORD_STAGGER }}
@@ -97,9 +97,9 @@ export function HeroTitle({ lead, words, end }: { lead: string; words: string[];
               </span>
               {/* The period follows the typed word; the reserved space trails after it, out of sight. */}
               <span className="[grid-area:1/1]">
-                <span className="text-accent-ink">{word.slice(0, chars)}</span>
+                <span className="text-primary">{word.slice(0, chars)}</span>
                 <span
-                  className={`ml-[.04em] inline-block h-[.78em] w-[.07em] translate-y-[.06em] bg-accent-ink align-baseline ${phase === "hold" ? "animate-[caret-blink_1s_steps(1)_infinite]" : ""} motion-reduce:hidden`}
+                  className={`ml-[.04em] inline-block h-[.78em] w-[.07em] translate-y-[.06em] bg-primary align-baseline ${phase === "hold" ? "animate-[caret-blink_1s_steps(1)_infinite]" : ""} motion-reduce:hidden`}
                 />
                 {end}
               </span>

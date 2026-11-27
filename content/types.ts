@@ -71,6 +71,8 @@ export type Dictionary = {
     toggleTheme: string;
     switchLang: string;
     sections: string;
+    pickColor: string;
+    colors: { lime: string; blue: string; violet: string; orange: string };
     skip: string;
   };
   hero: {

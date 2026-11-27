@@ -1,6 +1,7 @@
 import type { Dictionary } from "@/content";
 import type { ExperienceEntry } from "@/content/types";
 import { Reveal, Stagger, StaggerItem } from "../motion";
+import { buttonClass } from "../m3-styles";
 import { Counter, ExternalLink, underlineLink } from "../ui";
 
 function EntryBody({ entry }: { entry: ExperienceEntry }) {
@@ -9,11 +10,11 @@ function EntryBody({ entry }: { entry: ExperienceEntry }) {
       <Stagger as="ul" stagger={0.08} className="m-0 flex max-w-[68ch] list-none flex-col gap-5 p-0">
         {entry.roles.map((role) => (
           <StaggerItem as="li" key={role.title}>
-            <div className="font-display text-lg font-semibold">
+            <div className="type-title-m text-on-surface">
               {role.title}{" "}
-              <span className="font-mono text-[11px] tracking-[.12em] text-fg-3">{role.meta}</span>
+              <span className="type-label-m text-on-surface-variant">{role.meta}</span>
             </div>
-            <div className="mt-1 text-[15px] text-fg-2">{role.text}</div>
+            <div className="mt-1 type-body-m text-on-surface-variant">{role.text}</div>
           </StaggerItem>
         ))}
       </Stagger>
@@ -23,22 +24,22 @@ function EntryBody({ entry }: { entry: ExperienceEntry }) {
   return (
     <div>
       {entry.title && (
-        <h3 className="m-0 mb-1.5 font-display text-[clamp(21px,2.3vw,30px)] font-semibold tracking-[-.02em]">{entry.title}</h3>
+        <h3 className="m-0 mb-1.5 type-title-l font-medium text-on-surface md:text-2xl">{entry.title}</h3>
       )}
       {entry.bullets && (
-        <ul className="mt-4 mb-[18px] flex max-w-[68ch] list-disc flex-col gap-[9px] pl-5 text-fg-2 marker:text-accent-ink">
+        <ul className="mt-4 mb-4 flex max-w-[68ch] list-disc flex-col gap-2 pl-5 type-body-l text-on-surface-variant marker:text-primary">
           {entry.bullets.map((b) => (
             <li key={b}>{b}</li>
           ))}
         </ul>
       )}
       {entry.text && (
-        <p className={`max-w-[68ch] text-fg-2 ${entry.title ? "mt-4 mb-3.5" : "mt-0 mb-4"}`}>{entry.text}</p>
+        <p className={`max-w-[68ch] text-on-surface-variant ${entry.title ? "mt-4 mb-3.5" : "mt-0 mb-4"}`}>{entry.text}</p>
       )}
       {entry.tags && (
         <div className="flex flex-wrap gap-2">
           {entry.tags.map((tag) => (
-            <span key={tag} className="rounded-full bg-panel-2 px-[13px] py-1.5 font-mono text-[10.5px] tracking-[.1em] text-fg-2">
+            <span key={tag} className="inline-flex h-8 items-center rounded-sm border border-outline-variant px-3 type-label-l text-on-surface-variant">
               {tag}
             </span>
           ))}
@@ -57,11 +58,11 @@ function EntryBody({ entry }: { entry: ExperienceEntry }) {
         <div className="flex flex-wrap gap-[9px]">
           {entry.chips.map((chip) =>
             chip.href ? (
-              <ExternalLink key={chip.label} href={chip.href} className="chip text-fg no-underline transition-colors hover:text-accent-ink">
+              <ExternalLink key={chip.label} href={chip.href} className={buttonClass("tonal")}>
                 {chip.label} <span aria-hidden="true">↗</span>
               </ExternalLink>
             ) : (
-              <span key={chip.label} className="chip text-fg-2">
+              <span key={chip.label} className="inline-flex h-10 items-center rounded-full bg-surface-container-high px-5 type-label-l text-on-surface-variant">
                 {chip.label}
               </span>
             ),
@@ -74,34 +75,34 @@ function EntryBody({ entry }: { entry: ExperienceEntry }) {
 
 export function Experience({ t }: { t: Dictionary }) {
   return (
-    <section id="experience" className="section-space scroll-mt-24">
-      <Reveal className="mb-[clamp(30px,4vw,56px)] flex flex-wrap items-end justify-between gap-5">
+    <section id="experience" className="section-space">
+      <Reveal className="mb-8 flex flex-wrap items-end justify-between gap-5">
         <div>
           <Counter n={6} />
-          <h2 className="m-0 font-display text-[clamp(30px,4vw,56px)] leading-none font-extrabold tracking-[-.03em]">
+          <h2 className="m-0 type-headline-l-emph text-on-surface">
             {t.experience.title}
           </h2>
         </div>
-        <p className="m-0 font-mono text-[11px] tracking-[.18em] text-fg-3 uppercase">{t.experience.range}</p>
+        <p className="m-0 type-label-l text-on-surface-variant">{t.experience.range}</p>
       </Reveal>
 
-      <div className="border-b border-line">
+      <div className="flex flex-col gap-3">
         {t.experience.entries.map((entry) => (
           <Reveal
             key={entry.period + entry.place}
-            className={`grid grid-cols-1 gap-3 border-t py-[clamp(26px,3.2vw,40px)] lg:grid-cols-[170px_minmax(0,1fr)] lg:gap-[clamp(16px,3vw,48px)] ${entry.current ? "border-accent" : "border-line"}`}
+            className={`grid grid-cols-1 gap-3 rounded-xl p-5 md:p-8 lg:grid-cols-[170px_minmax(0,1fr)] lg:gap-10 ${entry.current ? "bg-secondary-container/60 ring-2 ring-primary" : "border border-outline-variant"}`}
           >
             <div>
-              <div className={`font-display text-2xl font-extrabold tracking-[-.02em] ${entry.current ? "text-accent-ink" : ""}`}>
+              <div className={`type-headline-s font-bold ${entry.current ? "text-primary" : "text-on-surface"}`}>
                 {entry.current && (
                   <span aria-hidden="true" className="relative mr-2 inline-flex size-2 -translate-y-1 align-middle">
-                    <span className="absolute inset-0 animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" />
-                    <span className="relative size-2 rounded-full bg-accent" />
+                    <span className="absolute inset-0 animate-ping rounded-full bg-primary opacity-60 motion-reduce:animate-none" />
+                    <span className="relative size-2 rounded-full bg-primary" />
                   </span>
                 )}
                 {entry.period}
               </div>
-              <div className="mt-2 font-mono text-[10px] tracking-[.18em] text-fg-3 uppercase">{entry.place}</div>
+              <div className="mt-1 type-label-l text-on-surface-variant">{entry.place}</div>
             </div>
             <EntryBody entry={entry} />
           </Reveal>
@@ -114,17 +115,17 @@ export function Experience({ t }: { t: Dictionary }) {
 export function Beyond({ t }: { t: Dictionary }) {
   return (
     <section id="beyond" className="section-space">
-      <Counter n={7} className="mb-[22px]" />
+      <Counter n={7} />
       <Stagger stagger={0.1} className="flex flex-wrap items-baseline gap-x-[26px] gap-y-3.5">
         <StaggerItem as="span">
-          <h2 className="m-0 mr-[18px] font-display text-[clamp(26px,3vw,40px)] leading-none font-extrabold tracking-[-.03em]">
+          <h2 className="m-0 mr-4 type-headline-l-emph text-on-surface">
             {t.beyond.title}
           </h2>
         </StaggerItem>
         {t.beyond.traits.map((trait, i) => (
           <StaggerItem as="span" key={trait} className="flex items-baseline gap-x-[26px]">
-            {i > 0 && <span aria-hidden="true" className="block size-[7px] self-center rounded-full bg-accent" />}
-            <span className="font-display text-[clamp(20px,2.4vw,32px)] font-semibold tracking-[-.02em] text-fg-3 transition-colors hover:text-fg">
+            {i > 0 && <span aria-hidden="true" className="block size-[7px] self-center rounded-full bg-primary" />}
+            <span className="type-headline-s text-on-surface-variant transition-colors hover:text-on-surface">
               {trait}
             </span>
           </StaggerItem>

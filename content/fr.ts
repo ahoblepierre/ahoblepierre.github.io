@@ -18,6 +18,8 @@ export const fr: Dictionary = {
     toggleTheme: "Basculer entre mode clair et sombre",
     switchLang: "Switch to English",
     sections: "Sections",
+    pickColor: "Couleur du thème",
+    colors: { lime: "Citron", blue: "Bleu", violet: "Violet", orange: "Orange" },
     skip: "Aller au contenu",
   },
   hero: {

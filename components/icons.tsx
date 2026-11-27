@@ -69,3 +69,52 @@ export const MoonIcon = (p: P) => (
     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z" />
   </Icon>
 );
+
+// Navigation and picker icons (same 24px stroke grid, rounded caps like Material Symbols Rounded).
+export const WorkIcon = (p: P) => (
+  <Icon {...p}>
+    <rect x="2" y="7" width="20" height="14" rx="2" />
+    <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
+  </Icon>
+);
+
+export const StackIcon = (p: P) => (
+  <Icon {...p}>
+    <path d="m16 18 6-6-6-6M8 6l-6 6 6 6" />
+  </Icon>
+);
+
+export const PersonIcon = (p: P) => (
+  <Icon {...p}>
+    <circle cx="12" cy="8" r="4" />
+    <path d="M4 21a8 8 0 0 1 16 0" />
+  </Icon>
+);
+
+export const HistoryIcon = (p: P) => (
+  <Icon {...p}>
+    <path d="M3 12a9 9 0 1 0 3-6.7L3 8" />
+    <path d="M3 3v5h5M12 7v5l3 2" />
+  </Icon>
+);
+
+export const PaletteIcon = (p: P) => (
+  <Icon {...p}>
+    <path d="M12 22a10 10 0 1 1 10-10c0 2.8-2.2 4-4 4h-2a2 2 0 0 0-1.5 3.3A1.6 1.6 0 0 1 12 22Z" />
+    <circle cx="7.5" cy="10.5" r="1" fill="currentColor" />
+    <circle cx="11" cy="6.5" r="1" fill="currentColor" />
+    <circle cx="16" cy="8" r="1" fill="currentColor" />
+  </Icon>
+);
+
+export const CheckIcon = (p: P) => (
+  <Icon {...p}>
+    <path d="M20 6 9 17l-5-5" />
+  </Icon>
+);
+
+export const ArrowForwardIcon = (p: P) => (
+  <Icon {...p}>
+    <path d="M5 12h14M13 6l6 6-6 6" />
+  </Icon>
+);

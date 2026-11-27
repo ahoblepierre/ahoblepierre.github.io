@@ -40,6 +40,17 @@ Dans un titre, entourer un mot d'astérisques (`*backend*`) l'affiche en couleur
 
 Tant que `cvPath` vaut `null`, les boutons « Télécharger le CV » sont masqués.
 
+### Couleurs (Material 3 Expressive)
+
+Le design suit Material 3 Expressive. Toute la palette (clair et sombre) découle d'une couleur de base ;
+le visiteur choisit parmi celles de `lib/m3-seeds.json` (la première est la couleur par défaut).
+
+Pour ajouter ou changer une couleur : modifier `lib/m3-seeds.json`, lancer `npm run palettes`
+(régénère `app/m3-palettes.css`), puis `npm test` (vérifie les contrastes), et ajouter son nom dans
+`nav.colors` de `content/fr.ts` et `content/en.ts`.
+
+L'ancienne version du site (design éditorial) est conservée sur la branche `legacy/editorial-v1` et le tag `editorial-v1`.
+
 ### Les visuels de projets
 
 Chaque projet affiche, dans cet ordre de priorité (voir `content/types.ts`) :

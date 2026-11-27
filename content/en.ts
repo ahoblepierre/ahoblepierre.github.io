@@ -18,6 +18,8 @@ export const en: Dictionary = {
     toggleTheme: "Toggle light and dark mode",
     switchLang: "Passer en français",
     sections: "Sections",
+    pickColor: "Theme colour",
+    colors: { lime: "Lime", blue: "Blue", violet: "Violet", orange: "Orange" },
     skip: "Skip to content",
   },
   hero: {

@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootRedirectLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="fr">
-      <body style={{ margin: 0, background: "#0a0a0b", color: "#f3f3f0", fontFamily: "system-ui, sans-serif" }}>
+      <body style={{ margin: 0, background: "#12140a", color: "#e2e4d2", fontFamily: "system-ui, sans-serif" }}>
         {children}
       </body>
     </html>

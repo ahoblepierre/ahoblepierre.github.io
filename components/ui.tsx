@@ -1,10 +1,10 @@
 import type { ReactNode } from "react";
 
 /** "01 / 07" section counter. */
-export function Counter({ n, total = 7, className = "" }: { n: number; total?: number; className?: string }) {
+export function Counter({ n, total = 7, className = "text-primary" }: { n: number; total?: number; className?: string }) {
   const pad = (v: number) => String(v).padStart(2, "0");
   return (
-    <div className={`eyebrow mb-4 text-accent-ink ${className}`}>
+    <div className={`mb-3 type-label-l ${className}`}>
       {pad(n)} / {pad(total)}
     </div>
   );
@@ -19,4 +19,4 @@ export function ExternalLink({ href, children, className = "" }: { href: string;
 }
 
 export const underlineLink =
-  "text-accent-ink no-underline border-b border-[color-mix(in_srgb,var(--accent-ink)_35%,transparent)] transition-colors hover:text-accent-hover hover:border-accent-hover";
+  "text-primary underline decoration-[color-mix(in_srgb,var(--md-sys-color-primary)_40%,transparent)] underline-offset-4 transition-colors hover:decoration-current";
