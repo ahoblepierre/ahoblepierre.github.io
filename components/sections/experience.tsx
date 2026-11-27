@@ -74,7 +74,7 @@ function EntryBody({ entry }: { entry: ExperienceEntry }) {
 
 export function Experience({ t }: { t: Dictionary }) {
   return (
-    <section id="experience" className="section-space scroll-mt-24">
+    <section id="experience" className="section-space">
       <Reveal className="mb-[clamp(30px,4vw,56px)] flex flex-wrap items-end justify-between gap-5">
         <div>
           <Counter n={6} />

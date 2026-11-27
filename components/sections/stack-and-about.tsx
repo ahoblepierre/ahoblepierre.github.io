@@ -4,7 +4,7 @@ import { Counter } from "../ui";
 
 export function Stack({ t }: { t: Dictionary }) {
   return (
-    <section id="stack" className="section-space scroll-mt-24">
+    <section id="stack" className="section-space">
       <Reveal className="mb-[clamp(30px,4vw,56px)] flex flex-wrap items-end justify-between gap-5">
         <div>
           <Counter n={4} />
@@ -44,7 +44,7 @@ export function Stack({ t }: { t: Dictionary }) {
 export function About({ t }: { t: Dictionary }) {
   const { about } = t;
   return (
-    <section id="about" className="section-space scroll-mt-24">
+    <section id="about" className="section-space">
       <Counter n={5} />
       <div className="grid grid-cols-1 items-start gap-[clamp(28px,5vw,80px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,.6fr)]">
         <div>

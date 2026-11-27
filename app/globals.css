@@ -180,6 +180,7 @@ html[data-theme="light"] {
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 72px; /* clears the 64px top app bar */
     background: var(--ink);
   }
 

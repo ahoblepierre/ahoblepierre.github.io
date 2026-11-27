@@ -2,7 +2,7 @@
 
 import { motion } from "motion/react";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type KeyboardEvent, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode } from "react";
 import { LANG_STORAGE_KEY, SEED_STORAGE_KEY, THEME_STORAGE_KEY, otherLocale, type Locale } from "@/lib/i18n";
 import seeds from "@/lib/m3-seeds.json";
 import { CheckIcon, MoonIcon, PaletteIcon, SunIcon } from "./icons";
@@ -179,11 +179,13 @@ export function LangSwitch({ lang, label }: { lang: Locale; label: string }) {
   );
 }
 
-/** Fixed section rail on wide screens; highlights the section currently in view. */
-export function SectionRail({ items, label }: { items: { id: string; label: string }[]; label: string }) {
+/** The section currently in view, among `ids` (in page order). */
+export function useActiveSection(ids: string[]): string | null {
   const [active, setActive] = useState<string | null>(null);
+  const key = ids.join(",");
 
   useEffect(() => {
+    const list = key.split(",");
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -192,42 +194,98 @@ export function SectionRail({ items, label }: { items: { id: string; label: stri
             setActive(id);
           } else if (entry.boundingClientRect.top > 0) {
             // Scrolled back up past this section's top: fall back to the previous one (or none).
-            const index = items.findIndex((item) => item.id === id);
-            setActive((current) => (current === id ? (items[index - 1]?.id ?? null) : current));
+            const index = list.indexOf(id);
+            setActive((current) => (current === id ? (list[index - 1] ?? null) : current));
           }
         }
       },
       { rootMargin: "-20% 0px -60% 0px" },
     );
-    for (const { id } of items) {
+    for (const id of list) {
       const el = document.getElementById(id);
       if (el) observer.observe(el);
     }
     return () => observer.disconnect();
-  }, [items]);
+  }, [key]);
 
+  return active;
+}
+
+export type NavItem = { id: string; label: string; icon: ReactNode };
+
+function Destination({ item, on, vertical }: { item: NavItem; on: boolean; vertical: boolean }) {
+  return (
+    <a
+      href={`#${item.id}`}
+      aria-current={on ? "true" : undefined}
+      className={`group flex flex-col items-center gap-1 rounded-lg no-underline outline-offset-2 ${vertical ? "w-full py-1" : "flex-1 pt-3 pb-4"}`}
+    >
+      <span className="relative grid h-8 w-16 place-items-center">
+        {on && (
+          <motion.span
+            layoutId={vertical ? "rail-indicator" : "bar-indicator"}
+            className="absolute inset-0 rounded-full bg-secondary-container"
+            transition={SPRING}
+          />
+        )}
+        <span
+          className={`relative grid h-8 w-16 place-items-center rounded-full transition-colors group-hover:bg-on-surface/8 ${on ? "text-on-secondary-container" : "text-on-surface-variant"}`}
+        >
+          {item.icon}
+        </span>
+      </span>
+      <span className={`type-label-m ${on ? "font-bold text-on-surface" : "text-on-surface-variant"}`}>{item.label}</span>
+    </a>
+  );
+}
+
+/** M3 navigation bar: compact windows only, with the Contact FAB above it. */
+export function NavigationBar({ items, label, contact }: { items: NavItem[]; label: string; contact: ReactNode }) {
+  const active = useActiveSection(items.map((i) => i.id));
+  const [contactInView, setContactInView] = useState(false);
+
+  useEffect(() => {
+    const el = document.getElementById("contact");
+    if (!el) return;
+    const observer = new IntersectionObserver(([entry]) => setContactInView(entry.isIntersecting));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <>
+      {/* The FAB steps aside once the contact section (and its submit button) is on screen. */}
+      <div
+        className={`fixed right-4 bottom-[calc(96px+env(safe-area-inset-bottom))] z-45 transition-[opacity,scale] duration-300 md:hidden ${contactInView ? "pointer-events-none scale-75 opacity-0" : ""}`}
+      >
+        {contact}
+      </div>
+      <nav
+        aria-label={label}
+        className="fixed inset-x-0 bottom-0 z-45 flex bg-surface-container pb-[env(safe-area-inset-bottom)] md:hidden"
+      >
+        {items.map((item) => (
+          <Destination key={item.id} item={item} on={active === item.id} vertical={false} />
+        ))}
+      </nav>
+    </>
+  );
+}
+
+/** M3 navigation rail: large windows, Contact FAB on top. */
+export function NavigationRail({ items, label, contact }: { items: NavItem[]; label: string; contact: ReactNode }) {
+  const active = useActiveSection(items.map((i) => i.id));
   return (
     <nav
       aria-label={label}
-      className="fixed top-1/2 right-[clamp(16px,2.4vw,34px)] z-35 hidden -translate-y-1/2 flex-col items-end gap-5 xl:flex"
+      className="fixed inset-y-0 left-0 z-45 hidden w-24 flex-col items-center gap-10 bg-surface pt-5 xl:flex"
     >
-      {items.map(({ id, label: text }) => {
-        const on = active === id;
-        return (
-          <a key={id} href={`#${id}`} className="group flex items-center gap-3 text-fg-2 no-underline">
-            <span
-              className={`rounded-full bg-[color-mix(in_srgb,var(--ink)_85%,transparent)] px-2 py-0.5 font-mono text-[10px] tracking-[.18em] uppercase backdrop-blur transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100 ${on ? "translate-x-0 opacity-100" : "translate-x-1.5 opacity-0"}`}
-            >
-              {text}
-            </span>
-            <motion.i
-              className="block h-0.5 rounded-sm"
-              animate={{ width: on ? 26 : 16, backgroundColor: on ? "var(--accent-ink)" : "var(--line-strong)" }}
-              transition={{ duration: 0.28 }}
-            />
-          </a>
-        );
-      })}
+      {contact}
+      <div className="flex w-full flex-col items-center gap-3">
+        {items.map((item) => (
+          <Destination key={item.id} item={item} on={active === item.id} vertical />
+        ))}
+      </div>
     </nav>
   );
 }

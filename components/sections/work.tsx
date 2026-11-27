@@ -138,7 +138,7 @@ function ProjectCard({ project, index, labels, last }: { project: Project; index
 export function SelectedWork({ t }: { t: Dictionary }) {
   const { projects, labels } = t.work;
   return (
-    <section id="work" className="scroll-mt-24">
+    <section id="work">
       <Reveal className="pb-[clamp(40px,6vw,72px)]">
         <Counter n={3} />
         <div className="flex flex-wrap items-end justify-between gap-5">

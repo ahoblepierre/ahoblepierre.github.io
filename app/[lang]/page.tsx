@@ -18,10 +18,10 @@ export default async function HomePage({ params }: PageProps<"/[lang]">) {
 
   return (
     // `clip` (not `hidden`) keeps the sticky header working while hiding the full-bleed overflow.
-    <div className="overflow-x-clip">
+    <div className="overflow-x-clip pb-[calc(80px+env(safe-area-inset-bottom))] md:pb-0 xl:pl-24">
       <ScrollProgress />
       <Header t={t} lang={lang} />
-      <main id="top" className="mx-auto max-w-[1400px] px-[clamp(18px,4vw,56px)]">
+      <main id="top" className="mx-auto max-w-[1400px] px-4 md:px-6">
         <Hero t={t} lang={lang} />
         <WhatIBuild t={t} />
         <HowIWork t={t} />

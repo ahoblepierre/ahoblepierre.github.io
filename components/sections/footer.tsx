@@ -7,7 +7,7 @@ const iconLink =
 
 export function Footer({ t }: { t: Dictionary }) {
   return (
-    <footer className="px-[clamp(18px,4vw,56px)] pt-[clamp(28px,4vw,56px)] pb-[82px] md:pb-[clamp(40px,4vw,60px)]">
+    <footer className="px-[clamp(18px,4vw,56px)] pt-[clamp(28px,4vw,56px)] pb-[clamp(24px,4vw,60px)]">
       <div className="mx-auto flex max-w-[1400px] flex-wrap items-end justify-between gap-x-10 gap-y-6">
         <div>
           <div className="font-display text-[clamp(22px,2.4vw,30px)] font-extrabold tracking-[-.03em]">{site.name}</div>
