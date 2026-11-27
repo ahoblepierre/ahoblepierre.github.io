@@ -10,8 +10,11 @@ import {
 } from "motion/react";
 import { useRef, type ReactNode } from "react";
 
-// The mockup's easing curve, reused everywhere so motion feels consistent.
-export const EASE = [0.16, 0.84, 0.26, 1] as const;
+// M3 emphasized decelerate: the curve for elements entering the screen (scroll reveals).
+export const EASE = [0.05, 0.7, 0.1, 1] as const;
+export const EASE_EMPHASIZED = [0.2, 0, 0, 1] as const;
+// M3 Expressive spring for interactions (press, indicators, shape morphs).
+export const SPRING = { type: "spring", stiffness: 500, damping: 30 } as const;
 
 const VIEWPORT = { once: true, margin: "0px 0px -10% 0px" } as const;
 

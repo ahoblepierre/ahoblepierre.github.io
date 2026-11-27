@@ -12,3 +12,4 @@ export const otherLocale = (lang: Locale): Locale => (lang === "fr" ? "en" : "fr
 // Shared with the root redirect page so the visitor's last choice sticks.
 export const LANG_STORAGE_KEY = "ahoble-portfolio-lang";
 export const THEME_STORAGE_KEY = "ahoble-portfolio-theme";
+export const SEED_STORAGE_KEY = "ahoble-portfolio-seed";

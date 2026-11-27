@@ -1,8 +1,7 @@
-import { Bricolage_Grotesque, Instrument_Sans, JetBrains_Mono } from "next/font/google";
+import { Roboto_Flex } from "next/font/google";
 
 // Self-hosted at build time by next/font — no request to Google from the visitor's browser.
-const display = Bricolage_Grotesque({ subsets: ["latin"], axes: ["opsz"], variable: "--font-bricolage", display: "swap" });
-const body = Instrument_Sans({ subsets: ["latin"], variable: "--font-instrument", display: "swap" });
-const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-jetbrains", display: "swap" });
+// Variable font: the wdth/opsz axes give the Expressive emphasized styles.
+const roboto = Roboto_Flex({ subsets: ["latin"], axes: ["opsz", "wdth"], variable: "--font-roboto-flex", display: "swap" });
 
-export const fontVariables = `${display.variable} ${body.variable} ${mono.variable}`;
+export const fontVariables = roboto.variable;
