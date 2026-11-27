@@ -3,11 +3,16 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useState, type FormEvent } from "react";
 import type { Dictionary } from "@/content";
+import { Button } from "./m3";
+import { EASE } from "./motion";
 
 type Status = "idle" | "sending" | "success" | "error";
 
+// M3 outlined text field: the label sits inside, then floats into the border on focus or once filled.
 const inputClass =
-  "w-full border border-line bg-panel-2 px-[18px] text-[15px] text-fg caret-accent-ink outline-none transition-colors focus:border-accent-ink";
+  "peer w-full rounded-xs border border-outline bg-transparent px-4 type-body-l text-on-surface caret-primary outline-none transition-colors hover:border-on-surface focus:border-2 focus:border-primary focus:px-[15px] user-invalid:border-error";
+const labelClass =
+  "pointer-events-none absolute left-3 top-4 origin-left bg-surface-container px-1 type-body-l text-on-surface-variant transition-all duration-200 ease-emphasized peer-focus:-translate-y-[26px] peer-focus:scale-75 peer-focus:text-primary peer-[:not(:placeholder-shown)]:-translate-y-[26px] peer-[:not(:placeholder-shown)]:scale-75 peer-user-invalid:text-error";
 
 export function ContactForm({
   t,
@@ -71,44 +76,38 @@ export function ContactForm({
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-      transition={{ duration: 0.9, ease: [0.16, 0.84, 0.26, 1], delay: 0.1 }}
-      className="flex flex-col gap-5 rounded-[clamp(20px,2.4vw,30px)] bg-ink p-[clamp(24px,3.4vw,44px)]"
+      transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}
+      className="flex flex-col gap-5 rounded-2xl bg-surface-container p-5 md:p-8"
     >
-      <h3 className="m-0 font-display text-[22px] font-semibold tracking-[-.02em]">{t.title}</h3>
+      <h3 className="m-0 type-headline-s text-on-surface">{t.title}</h3>
 
       {/* Honeypot for bots — Web3Forms rejects submissions where it is checked. */}
       <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
 
-      <div>
-        <label htmlFor="cf-name" className="label-mono mb-[9px] block">
+      <div className="relative">
+        <input id="cf-name" name="name" type="text" required autoComplete="name" placeholder=" " className={`${inputClass} h-14`} />
+        <label htmlFor="cf-name" className={labelClass}>
           {t.name}
         </label>
-        <input id="cf-name" name="name" type="text" required autoComplete="name" className={`${inputClass} min-h-[50px] rounded-full py-3`} />
       </div>
-      <div>
-        <label htmlFor="cf-email" className="label-mono mb-[9px] block">
+      <div className="relative">
+        <input id="cf-email" name="email" type="email" required autoComplete="email" placeholder=" " className={`${inputClass} h-14`} />
+        <label htmlFor="cf-email" className={labelClass}>
           {t.email}
         </label>
-        <input id="cf-email" name="email" type="email" required autoComplete="email" className={`${inputClass} min-h-[50px] rounded-full py-3`} />
       </div>
-      <div>
-        <label htmlFor="cf-msg" className="label-mono mb-[9px] block">
+      <div className="relative">
+        <textarea id="cf-msg" name="message" rows={4} required placeholder=" " className={`${inputClass} min-h-[120px] resize-y py-4`} />
+        <label htmlFor="cf-msg" className={labelClass}>
           {t.message}
         </label>
-        <textarea id="cf-msg" name="message" rows={4} required className={`${inputClass} min-h-[120px] resize-y rounded-[22px] py-3.5`} />
       </div>
 
-      <motion.button
-        type="submit"
-        disabled={status === "sending"}
-        whileHover={{ scale: 1.015 }}
-        whileTap={{ scale: 0.97 }}
-        className="min-h-[52px] w-full cursor-pointer rounded-full border-0 bg-accent font-body text-[15.5px] font-semibold text-on-accent transition-colors hover:bg-accent-deep disabled:cursor-wait disabled:opacity-70"
-      >
+      <Button type="submit" disabled={status === "sending"} className="h-14 w-full type-title-m disabled:cursor-wait disabled:opacity-70">
         {status === "sending" ? t.sending : t.submit}
-      </motion.button>
+      </Button>
 
-      <p aria-live="polite" className="m-0 min-h-[18px] font-mono text-[11.5px] tracking-[.04em] text-accent-ink">
+      <p aria-live="polite" className="m-0 min-h-5 type-body-m text-primary">
         <AnimatePresence mode="wait">
           {note && (
             <motion.span
@@ -116,13 +115,13 @@ export function ContactForm({
               initial={{ opacity: 0, y: 6 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
-              className={`block ${status === "error" ? "text-fg-2" : ""}`}
+              className={`block ${status === "error" ? "text-error" : ""}`}
             >
               {note}
               {status === "error" && (
                 <>
                   {" "}
-                  <a href={`mailto:${email}`} className="text-accent-ink">
+                  <a href={`mailto:${email}`} className="text-primary underline">
                     {email}
                   </a>
                 </>

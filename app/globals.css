@@ -2,21 +2,7 @@
 
 @import "./m3-palettes.css";
 
-/* Legacy names → M3 roles. shortcut: temporary aliases while sections migrate, removed in GH-1 task 7. */
 :root {
-  --ink: var(--md-sys-color-surface);
-  --panel: var(--md-sys-color-surface-container-low);
-  --panel-2: var(--md-sys-color-surface-container-high);
-  --line: var(--md-sys-color-outline-variant);
-  --line-strong: var(--md-sys-color-outline);
-  --accent: var(--md-sys-color-primary);
-  --accent-ink: var(--md-sys-color-primary);
-  --accent-hover: color-mix(in srgb, var(--md-sys-color-primary) 90%, var(--md-sys-color-on-primary));
-  --accent-deep: var(--md-sys-color-primary-container);
-  --text: var(--md-sys-color-on-surface);
-  --text-2: var(--md-sys-color-on-surface-variant);
-  --text-3: var(--md-sys-color-outline);
-
   --md-motion-emphasized: cubic-bezier(0.2, 0, 0, 1);
   --md-motion-emphasized-decelerate: cubic-bezier(0.05, 0.7, 0.1, 1);
   --md-motion-emphasized-accelerate: cubic-bezier(0.3, 0, 0.8, 0.15);
@@ -29,19 +15,6 @@ html[data-theme="light"] {
 }
 
 @theme inline {
-  --color-ink: var(--ink);
-  --color-panel: var(--panel);
-  --color-panel-2: var(--panel-2);
-  --color-line: var(--line);
-  --color-line-strong: var(--line-strong);
-  --color-accent: var(--accent);
-  --color-accent-ink: var(--accent-ink);
-  --color-accent-hover: var(--accent-hover);
-  --color-accent-deep: var(--accent-deep);
-  --color-fg: var(--text);
-  --color-fg-2: var(--text-2);
-  --color-fg-3: var(--text-3);
-  --color-on-accent: var(--md-sys-color-on-primary);
 
   --color-primary: var(--md-sys-color-primary);
   --color-on-primary: var(--md-sys-color-on-primary);
@@ -76,9 +49,6 @@ html[data-theme="light"] {
   --color-scrim: var(--md-sys-color-scrim);
 
   --font-sans: var(--font-roboto-flex), system-ui, sans-serif;
-  --font-display: var(--font-sans);
-  --font-body: var(--font-sans);
-  --font-mono: var(--font-sans);
 }
 
 @theme {
@@ -151,28 +121,6 @@ html[data-theme="light"] {
   &:focus-visible::before, &:active::before { opacity: 0.1; }
 }
 
-/* Small mono labels used all over the page. */
-@utility eyebrow {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-}
-
-@utility label-mono {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-
-@utility chip {
-  padding: 9px 18px;
-  border-radius: 999px;
-  background: var(--panel-2);
-  font-size: 14.5px;
-}
-
 @utility section-space {
   padding-bottom: clamp(80px, 10vw, 128px);
 }
@@ -181,26 +129,26 @@ html[data-theme="light"] {
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 72px; /* clears the 64px top app bar */
-    background: var(--ink);
+    background: var(--md-sys-color-surface);
   }
 
   body {
     margin: 0;
-    background: var(--ink);
-    color: var(--text);
-    font-family: var(--font-body);
+    background: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    font-family: var(--font-sans);
     font-size: 16.5px;
     line-height: 1.62;
     -webkit-font-smoothing: antialiased;
   }
 
   ::selection {
-    background: var(--accent);
+    background: var(--md-sys-color-primary);
     color: var(--md-sys-color-on-primary);
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent-ink);
+    outline: 2px solid var(--md-sys-color-primary);
     outline-offset: 3px;
   }
 }
